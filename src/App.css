@@ -1,3 +1,28 @@
+@font-face {
+  font-family: MetroSans;
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/MetroSans-Bold.woff2) format("woff2");
+}
+@font-face {
+  font-family: MetroSans;
+  font-style: normal;
+  font-weight: 500;
+  src: url(/fonts/MetroSans-Medium.woff2) format("woff2");
+}
+@font-face {
+  font-family: MetroSans;
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/MetroSans-Regular.woff2) format("woff2");
+}
+@font-face {
+  font-family: MetroSans;
+  font-style: normal;
+  font-weight: 300;
+  src: url(/fonts/MetroSans/MetroSans-Light.woff2) format("woff2");
+}
+
 .App {
   text-align: center;
 }

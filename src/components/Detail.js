@@ -1,7 +1,7 @@
 import React from "react";
 
 const Detail = () => {
-    return null;
-}
+  return <></>;
+};
 
 export default Detail;
