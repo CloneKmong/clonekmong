@@ -1,7 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-const ProjectLists = ({ className, checked, ...props }) => {
+const ProjectListsCopy = () => {
+  const [toggle, setToggle] = useState(false);
+  const [menu, setMenu] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const mainCategory = [
+    ["IT·프로그래밍"],
+    ["디자인"],
+    ["영상·사진·음향"],
+    ["마케팅"],
+    ["번역·통역"],
+    ["문서·글쓰기"],
+    ["비즈니스컨설팅"],
+    ["레슨·실무교육"],
+  ];
+  const category = [
+    [
+      ["웹사이트・모바일앱 신규 제작"],
+      ["웹사이트 신규 제작"],
+      ["모바일앱 신규 제작"],
+      ["웹사이트 개선·버그수정"],
+      ["모바일앱 개선·버그수정"],
+      ["프로그램 개발"],
+      ["임베디드 시스템"],
+      ["게임"],
+      ["기획"],
+      ["데이터 사이언스"],
+    ],
+    [
+      ["로고디자인"],
+      ["패키지 (라벨·라벨스티커)"],
+      ["캘리그라피"],
+      ["북커버·앨범커버"],
+      ["공간디자인·도면"],
+      ["제품설계·디자인·3D프린팅"],
+      ["포토샵 편집"],
+      ["SNS 디자인(카드뉴스·채널아트 등)"],
+      ["블로그·카페"],
+      ["3D 캐릭터·게임용 원화"],
+      ["일러스트(삽화·캐릭터·웹툰·캐리커쳐·인물)"],
+      ["패키지 (상품박스·외부포장)"],
+      ["로고+명함디자인"],
+      ["스마트스토어·템플릿형 홈페이지"],
+      ["앱 디자인"],
+      ["웹·모바일 디자인"],
+      ["PPT·인포그래픽"],
+      ["현수막·X배너"],
+      ["명함 디자인"],
+      ["리플렛·소책자·카달로그"],
+      ["전단·포스터·초대장·봉투"],
+      ["상세페이지·배너"],
+      ["로고+간판디자인"],
+      ["의류 디자인"],
+    ],
+    [
+      ["영상제작"],
+      ["사진촬영"],
+      ["더빙·녹음"],
+      ["음악·사운드"],
+      ["엔터테이너"],
+    ],
+    [
+      ["종합광고대행사"],
+      ["체험단마케팅"],
+      ["포털마케팅"],
+      ["SNS마케팅"],
+      ["앱마케팅"],
+      ["온라인배너광고"],
+      ["오프라인광고"],
+    ],
+    [["번역"], ["통역"]],
+    [["카피라이팅"], ["문서 교정"], ["글작성"], ["문서서식·폼"], ["타이핑"]],
+    [
+      ["세무회계"],
+      ["리서치·서베이"],
+      ["법률·법무"],
+      ["해외사업"],
+      ["HR·인사"],
+      ["사업계획·IR"],
+      ["창업컨설팅"],
+      ["자산관리·재테크"],
+      ["업무지원·CS"],
+      ["유튜브 컨설팅"],
+      ["퍼스널 브랜딩"],
+    ],
+    [
+      ["외국어"],
+      ["악기·디제잉"],
+      ["게임"],
+      ["요가·필라테스"],
+      ["미술·드로잉"],
+      ["댄스"],
+      ["헬스·PT"],
+      ["뷰티·미용"],
+      ["공예·취미"],
+      ["미디·작곡·편곡"],
+      ["보컬·랩"],
+      ["스포츠"],
+      ["사진촬영·편집"],
+      ["영상촬영·편집"],
+      ["발표·발성"],
+      ["마케팅"],
+      ["빅데이터·엑셀"],
+      ["디자인툴·PPT"],
+      ["글쓰기"],
+    ],
+  ];
+
   return (
     <>
       <Container>
@@ -10,408 +126,53 @@ const ProjectLists = ({ className, checked, ...props }) => {
         <ListContainer>
           <Menu>
             <Category>카테고리</Category>
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>IT·프로그래밍</CheckLabel>
-            </CheckItem>
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>웹사이트・모바일앱 신규 제작</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>웹사이트 신규 제작</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>모바일앱 신규 제작</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>웹사이트 개선·버그수정</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>모바일앱 개선·버그수정</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>프로그램 개발</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>임베디드 시스템</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>게임</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>기획</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>데이터 사이언스</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>디자인</CheckLabel>
-            </CheckItem>
-
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>로고디자인</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>패키지 (라벨·라벨스티커)</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>캘리그라피</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>북커버·앨범커버</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>공간디자인·도면</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>제품설계·디자인·3D프린팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>포토샵 편집</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>SNS 디자인(카드뉴스·채널아트 등)</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>블로그·카페</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>3D 캐릭터·게임용 원화</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>
-                  일러스트(삽화·캐릭터·웹툰·캐리커쳐·인물)
-                </CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>패키지 (상품박스·외부포장)</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>로고+명함디자인</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>스마트스토어·템플릿형 홈페이지</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>앱 디자인</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>3D 캐릭터·게임용 원화</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>웹·모바일 디자인</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>PPT·인포그래픽</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>현수막·X배너</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>명함 디자인</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>리플렛·소책자·카달로그</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>전단·포스터·초대장·봉투</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>상세페이지·배너</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>로고+간판디자인</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>의류 디자인</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>영상·사진·음향</CheckLabel>
-            </CheckItem>
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>영상제작</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>사진촬영</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>더빙·녹음</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>음악·사운드</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>엔터테이너</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>마케팅</CheckLabel>
-            </CheckItem>
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>종합광고대행사</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>체험단마케팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>포털마케팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>SNS마케팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>앱마케팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>온라인배너광고</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>오프라인광고</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>번역·통역</CheckLabel>
-            </CheckItem>
-
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>번역</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>통역</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>문서·글쓰기</CheckLabel>
-            </CheckItem>
-
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>카피라이팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>문서 교정</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>글작성</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>문서서식·폼</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>타이핑</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>비즈니스컨설팅</CheckLabel>
-            </CheckItem>
-
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>세무회계</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>리서치·서베이</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>법률·법무</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>해외사업</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>HR·인사</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>사업계획·IR</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>창업컨설팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>자산관리·재테크</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>업무지원·CS</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>유튜브 컨설팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>퍼스널 브랜딩</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
-
-            <CheckItem>
-              <CheckBox type="checkbox" />
-              <CheckLabel>레슨·실무교육</CheckLabel>
-            </CheckItem>
-
-            <CheckSubBox>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>외국어</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>악기·디제잉</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>게임</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>요가·필라테스</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>미술·드로잉</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>댄스</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>헬스·PT</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>뷰티·미용</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>공예·취미</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>미디·작곡·편곡</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>프로그래밍</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>보컬·랩</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>스포츠</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>사진촬영·편집</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>영상촬영·편집</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>발표·발성</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>마케팅</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>빅데이터·엑셀</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>디자인툴·PPT</CheckSubLabel>
-              </CheckSubItem>
-              <CheckSubItem>
-                <CheckBox type="checkbox" />
-                <CheckSubLabel>글쓰기</CheckSubLabel>
-              </CheckSubItem>
-            </CheckSubBox>
+            {mainCategory.map((list, idx) => {
+              return (
+                <>
+                  <CheckItem>
+                    <CheckBox
+                      type="checkbox"
+                      onClick={() => {
+                        let copy = [...menu];
+                        copy[idx] = true;
+                        setMenu(copy);
+                      }}
+                    />
+                    <CheckLabel>{list}</CheckLabel>
+                    <BtnToggle
+                      onClick={() => {
+                        setToggle(!toggle);
+                        let copy = [...menu];
+                        copy[idx] = !copy[idx];
+                        setMenu(copy);
+                      }}
+                    >
+                      {toggle === false ? (
+                        <FontAwesomeIcon icon={faAngleDown} className="fa-xs" />
+                      ) : (
+                        <FontAwesomeIcon icon={faAngleUp} className="fa-xs" />
+                      )}
+                    </BtnToggle>
+                  </CheckItem>
+                  {menu[idx] === false ? null : (
+                    <SubContainer>
+                      {category[idx].map((list, idx) => {
+                        return (
+                          <CheckSubBox key={category.idx}>
+                            <CheckSubItem>
+                              <CheckBox type="checkbox" />
+                              <CheckSubLabel>{list}</CheckSubLabel>
+                            </CheckSubItem>
+                          </CheckSubBox>
+                        );
+                      })}
+                    </SubContainer>
+                  )}
+                </>
+              );
+            })}
           </Menu>
+
           <CardContainer>
             <SearchBar></SearchBar>
             <Card></Card>
@@ -455,27 +216,37 @@ const Category = styled.div`
   align-items: center;
   padding-top: 24px;
   padding-bottom: 15px;
+  margin-bottom: 10px;
 `;
 const CheckItem = styled.label`
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 `;
-const CheckSubBox = styled.div`
-  background: #fafafc;
-  padding-top: 13px;
-  padding-left: 8px;
-  border-radius: 4px;
+const SubContainer = styled.div`
+  background-color: #fafafc;
+  padding: 6px 8px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  border-radius: 4px;
+  width: 168px;
 `;
 const CheckSubItem = styled.label`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-top: -5px;
+
+  width: 168px;
 `;
+const CheckSubBox = styled.div`
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 168px;
+`;
+
 const CheckBox = styled.input`
   appearance: none;
   border: 1px solid #c8cad2;
@@ -510,6 +281,26 @@ const CheckLabel = styled.p`
     font: 700 14px MetroSans;
   }
 `;
+const BtnToggle = styled.button`
+  flex: 0 1 auto;
+  height: 24px;
+  cursor: default;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #c8cad2;
+  font-size: 16px;
+  background-color: #ffffff;
+  padding: 0 0 0 16px;
+  position: absolute;
+  right: 10px;
+  :hover {
+    color: #222;
+  }
+`;
 const CheckSubLabel = styled.p`
   font: 500 13px MetroSans;
   color: #555969;
@@ -529,4 +320,4 @@ const SearchBar = styled.div`
   border: 1px solid #e4e5ed;
 `;
 const Card = styled.div``;
-export default ProjectLists;
+export default ProjectListsCopy;
