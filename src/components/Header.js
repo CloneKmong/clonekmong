@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 const Header = () => {
   return (
-    <>
-      <HeaderWrap>
-        <HeaderLeftWrap>
+    <HeaderContainer>
+      <HeaderFirstWrap>
+        <HeaderFirstLeftWrap>
           <svg
             cursor="pointer"
             width="85"
@@ -19,121 +19,84 @@ const Header = () => {
               fill-rule="evenodd"
             ></path>
           </svg>
-          <HeaderVerticalLine />
-          <HeaderText>엔터프라이즈</HeaderText>
-        </HeaderLeftWrap>
-        {/* 로그인 시 */}
-        {/* <HeaderLoginRightWrap>
-          <HeaderBtns>메세지</HeaderBtns>
-          <HeaderBtns>마이크몽</HeaderBtns>
-          <HeaderIcon />
-        </HeaderLoginRightWrap> */}
-        {/* 로그 아웃시 */}
-        <HeaderLoginOutRightWrap>
-          <HeaderBtns>로그인</HeaderBtns>
-          <HeaderSignupBtns>무료 회원 가입</HeaderSignupBtns>
-        </HeaderLoginOutRightWrap>
-      </HeaderWrap>
-      <HeaderLinkWrap>
+          <HeaderFirstLeftVline />
+          <HeaderFirstLeftText>엔터프라이즈</HeaderFirstLeftText>
+        </HeaderFirstLeftWrap>
+        <HeaderFirstRightWrap>
+          {/* 로그인 시 */}
 
-      </HeaderLinkWrap>
-    </>
+          {/* 로그 아웃시 */}
+          {/* <HeaderLogin>로그인</HeaderLogin>
+          <HeaderSignUp>무료 회원가입</HeaderSignUp> */}
+        </HeaderFirstRightWrap>
+      </HeaderFirstWrap>
+      <HeaderSecondWrap></HeaderSecondWrap>
+    </HeaderContainer>
   );
 };
-// 최상한 div
-const HeaderWrap = styled.div`
+// header 전체 div
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+  height: 110px;
+  margin: auto;
+`;
+const HeaderFirstWrap = styled.div`
   /* width: 100%; */
-  width: 800px;
+  width: 900px;
   height: 70px;
   border: 1px solid green;
-  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+  /* margin: 0px auto;
   align-items: center;
   display: flex;
   padding: 0 10px;
-  justify-content: space-between;
+  justify-content: space-between; */
 `;
-// 최상단 div 내 왼쪽 로그와 엔터프라이즈 글
-const HeaderLeftWrap = styled.div`
+
+const HeaderFirstLeftWrap = styled.div`
   display: flex;
+  height: 68px;
   align-items: center;
-  width: 220px;
-  height: 100%;
   margin-left: 15px;
-  /* border: 1px solid red; */
 `;
-// Logo와 엔터프라이즈 나누는 구분선
-const HeaderVerticalLine = styled.div`
-  border-left: thin solid #e4e5ed;
+
+const HeaderFirstLeftVline = styled.div`
+  border-left: thin solid rgb(228, 229, 237);
   margin-left: 10px;
-  margin-right: 10px;
-  height: 20px;
+  height: 25px;
 `;
 
-// 엔터프라이즈
-const HeaderText = styled.span`
+const HeaderFirstLeftText = styled.div`
+  margin-left: 10px;
   cursor: pointer;
-  color: #303441;
 `;
 
-// 최상단 div 우측
-const HeaderLoginRightWrap = styled.div`
+const HeaderFirstRightWrap = styled.div`
   display: flex;
+  height: 68px;
   align-items: center;
-  width: 170px;
-  height: 100%;
+  margin-right: 15px;
 `;
 
-// 최상단 div 버튼
-const HeaderBtns = styled.span`
+const HeaderLogin = styled.div`
+  margin-right: 50px;
   cursor: pointer;
-  margin-right: 10px;
-  color: #303441;
 `;
 
-// 로그인 시 아이콘
-const HeaderIcon = styled.img`
+const HeaderSignUp = styled.div`
+  padding: 10px;
+  border: 1px solid purple;
+  border-radius: 5px;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: gray;
 `;
 
-// 로그아웃 우측 div
-const HeaderLoginOutRightWrap = styled.div`
-    display: flex;
-    align-items: center;
+const HeaderSecondWrap = styled.div`
+  width: 900px;
+  height: 40px;
+  border: 1px solid black;
 `;
 
-// 회원가입 버튼
-const HeaderSignupBtns = styled.div`
-    background-color: #ffd400;
-    outline: none;
-    cursor: pointer;
-    margin-right: 15px;
-    margin-left: 50px;
-    padding: 10px;
-    border-radius: 5px;
-`;
-
-// 최상단 아래 div
-const HeaderLinkWrap = styled.div`
-  width: 800px;
-  display: flex;
-  padding: 0 16px;
-  border : 1px solid black;
-`;
-// 링크 버튼
-const HeaderLinkHomeBtn = styled.div`
-width: 50px;
-
-`;
-
-const HeaderLinkHomeBtnBr = styled.br``;
-
-const HeaderLinkListBtn = styled.div`
-`;
-const HeaderLinkListBtnBr = styled.br``;
-
-const HeaderLink = styled.div``;
 export default Header;
