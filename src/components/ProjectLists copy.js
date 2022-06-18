@@ -8,7 +8,7 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-const ProjectLists = () => {
+const ProjectListsCopy = () => {
   // toggle menu
   const [menu, setMenu] = useState([
     false,
@@ -26,36 +26,18 @@ const ProjectLists = () => {
   const [btn, setBtn] = useState(false);
   const onChange = (e) => {
     setText(e.target.value);
-    if (e.target.value !== "") {
+    if (e.target.value != "") {
       setBtn(true);
     } else {
       setBtn(false);
     }
+    console.log(e.target.value);
   };
   const onReset = () => {
     setText("");
     setBtn(!btn);
   };
-  // checkbox 단일 선택
-  const [checkItems, setCheckItems] = useState([]);
-  const handleSingleCheck = (checked, id) => {
-    if (checked) {
-      setCheckItems([...checkItems, id]);
-    } else {
-      setCheckItems(checkItems.filter((el) => el !== id));
-    }
-  };
-  // checkbox 전체 선택
-  const handleAllCheck = (checked) => {
-    if (checked) {
-      const idArray = [];
-      mainCategory.forEach((el) => idArray.push(el.id));
-      setCheckItems(idArray);
-    } else {
-      setCheckItems([]);
-    }
-    console.log(checkItems);
-  };
+
   const mainCategory = [
     ["IT·프로그래밍"],
     ["디자인"],
@@ -172,7 +154,7 @@ const ProjectLists = () => {
                 <>
                   <CheckItem>
                     <CheckBox
-                      name={`checkAll${idx}`}
+                      name={`check${idx}`}
                       type="checkbox"
                       onClick={() => {
                         let copy = [...menu];
@@ -244,125 +226,14 @@ const ProjectLists = () => {
                 <div />
               </ImgBox>
               <TextBox>
-                <TitleWrapper>
-                  <CardTitle>
-                    <Dday>D-12</Dday>
-                    <Title>LED제어 IOT컨트롤러</Title>
-                  </CardTitle>
-                  <IconBox></IconBox>
-                </TitleWrapper>
+                <CardTitle>
+                  <Dday>D-12</Dday>
+                  <Title>LED제어 IOT컨트롤러</Title>
+                </CardTitle>
                 <SubTitle>
                   <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
                 </SubTitle>
-                <Comment>
-                  ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                  도로교통시설물 대신 자사 제품인 LED 미디어 글라스를 이용하여
-                  민간 및 지자체에 메시지와 다양한 정보를 제공 할 수 있는 LED
-                  전자 배너 개발하여 양산하는 프로젝트입니다. 유무선 통신 (LTE,
-                  Wi-Fi, Ethernet)을 이용하여 설치 장소의 날씨, 미세먼지, 시간,
-                  교통 등 다양한 정보를 PC 또는 스마트폰으로 제어 하여 전자
-                  배너에 출력 할 수 있는 컨트롤러를 개발하는 것이 목표입니다.
-                </Comment>
-                <InfoWrapper>
-                  <InfoBox>
-                    <InfoTitle>예산</InfoTitle>
-                    <Info>50,000,000원</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>작업 기간</InfoTitle>
-                    <Info>90일</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>받은 제안</InfoTitle>
-                    <Info>1개</Info>
-                  </InfoBox>
-                </InfoWrapper>
-              </TextBox>
-            </Card>
-            <Card>
-              <ImgBox>
-                <div />
-              </ImgBox>
-              <TextBox>
-                <TitleWrapper>
-                  <CardTitle>
-                    <Dday>D-12</Dday>
-                    <Title>LED제어 IOT컨트롤러</Title>
-                  </CardTitle>
-                  <IconBox></IconBox>
-                </TitleWrapper>
-                <SubTitle>
-                  <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
-                </SubTitle>
-                <Comment>
-                  ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                  도로교통시설물 대신 자사 제품인 LED 미디어 글라스를 이용하여
-                  민간 및 지자체에 메시지와 다양한 정보를 제공 할 수 있는 LED
-                  전자 배너 개발하여 양산하는 프로젝트입니다. 유무선 통신 (LTE,
-                  Wi-Fi, Ethernet)을 이용하여 설치 장소의 날씨, 미세먼지, 시간,
-                  교통 등 다양한 정보를 PC 또는 스마트폰으로 제어 하여 전자
-                  배너에 출력 할 수 있는 컨트롤러를 개발하는 것이 목표입니다.
-                </Comment>
-                <InfoWrapper>
-                  <InfoBox>
-                    <InfoTitle>예산</InfoTitle>
-                    <Info>50,000,000원</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>작업 기간</InfoTitle>
-                    <Info>90일</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>받은 제안</InfoTitle>
-                    <Info>1개</Info>
-                  </InfoBox>
-                </InfoWrapper>
-              </TextBox>
-            </Card>
-            <Card>
-              <ImgBox>
-                <div />
-              </ImgBox>
-              <TextBox>
-                <TitleWrapper>
-                  <CardTitle>
-                    <Dday>D-12</Dday>
-                    <Title>LED제어 IOT컨트롤러</Title>
-                  </CardTitle>
-                  <IconBox></IconBox>
-                </TitleWrapper>
-                <SubTitle>
-                  <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
-                </SubTitle>
-                <Comment>
-                  ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                  도로교통시설물 대신 자사 제품인 LED 미디어 글라스를 이용하여
-                  민간 및 지자체에 메시지와 다양한 정보를 제공 할 수 있는 LED
-                  전자 배너 개발하여 양산하는 프로젝트입니다. 유무선 통신 (LTE,
-                  Wi-Fi, Ethernet)을 이용하여 설치 장소의 날씨, 미세먼지, 시간,
-                  교통 등 다양한 정보를 PC 또는 스마트폰으로 제어 하여 전자
-                  배너에 출력 할 수 있는 컨트롤러를 개발하는 것이 목표입니다.
-                </Comment>
-                <InfoWrapper>
-                  <InfoBox>
-                    <InfoTitle>예산</InfoTitle>
-                    <Info>50,000,000원</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>작업 기간</InfoTitle>
-                    <Info>90일</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>받은 제안</InfoTitle>
-                    <Info>1개</Info>
-                  </InfoBox>
-                </InfoWrapper>
+                <IconBox></IconBox>
               </TextBox>
             </Card>
           </CardContainer>
@@ -599,7 +470,6 @@ const TextBox = styled.div`
   height: 160px;
   margin-left: 25px;
 `;
-const TitleWrapper = styled.div``;
 const CardTitle = styled.div`
   display: flex;
   align-items: center;
@@ -622,65 +492,10 @@ const Title = styled.div`
   margin-left: 8px;
   font-weight: 700;
 `;
-const IconBox = styled.div``;
 const SubTitle = styled.div`
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 500;
+  margin-top: 12px;
+  font-size: 13px;
   color: #9a9ba7;
 `;
-const Comment = styled.div`
-  margin: 20px 0 16px 0;
-  color: #555969;
-  line-height: 18px;
-  height: 36px;
-  font-size: 14px;
-  font-weight: 500;
-  word-break: break-all;
-  overflow: hidden;
-  -webkit-line-clamp: 2;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-`;
-const InfoWrapper = styled.div`
-  width: 767px;
-  height: 18px;
-  display: flex;
-  background-color: #fafafc;
-  padding: 12px 20px;
-  align-items: center;
-  justify-content: center;
-`;
-const InfoBox = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 219.66px;
-  height: 18px;
-`;
-const InfoTitle = styled.div`
-  color: #727585;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.2;
-  position: absolute;
-  left: 0;
-`;
-const Info = styled.div`
-  color: #303441;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.2;
-  font-weight: 700;
-  position: absolute;
-  right: 0;
-`;
-const Divider = styled.div`
-  width: 2px;
-  height: 18px;
-  border-right: 2px solid #e4e5ed;
-  margin: 0 20px 0 32px;
-`;
-
-export default ProjectLists;
+const IconBox = styled.div``;
+export default ProjectListsCopy;
