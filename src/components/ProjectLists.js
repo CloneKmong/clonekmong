@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 const ProjectListsCopy = () => {
-  const [toggle, setToggle] = useState(false);
+  // toggle menu
   const [menu, setMenu] = useState([
     false,
     false,
@@ -15,6 +15,23 @@ const ProjectListsCopy = () => {
     false,
     false,
   ]);
+
+  // input erase button
+  const [text, setText] = useState("");
+  const [btn, setBtn] = useState(false);
+  const onChange = (e) => {
+    setText(e.target.value);
+    if (text !== "") {
+      setBtn(true);
+    } else {
+      setBtn(false);
+    }
+    console.log(btn);
+  };
+  const onReset = () => {
+    setText("");
+  };
+
   const mainCategory = [
     ["IT·프로그래밍"],
     ["디자인"],
@@ -141,13 +158,12 @@ const ProjectListsCopy = () => {
                     <CheckLabel>{list}</CheckLabel>
                     <BtnToggle
                       onClick={() => {
-                        setToggle(!toggle);
                         let copy = [...menu];
                         copy[idx] = !copy[idx];
                         setMenu(copy);
                       }}
                     >
-                      {toggle === false ? (
+                      {menu[idx] === false ? (
                         <FontAwesomeIcon icon={faAngleDown} className="fa-xs" />
                       ) : (
                         <FontAwesomeIcon icon={faAngleUp} className="fa-xs" />
@@ -172,10 +188,44 @@ const ProjectListsCopy = () => {
               );
             })}
           </Menu>
-
           <CardContainer>
-            <SearchBar></SearchBar>
-            <Card></Card>
+            <BarWrapper>
+              <SearchBar>
+                <input
+                  type="text"
+                  placeholder="키워드를 검색하세요."
+                  onChange={onChange}
+                  value={text}
+                />
+                {btn === true ? (
+                  <Erase
+                    src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/ic_round_delete.png"
+                    onClick={onReset}
+                  />
+                ) : null}
+
+                <img src="img/ic_search.png" />
+              </SearchBar>
+              <SortBar>
+                <BtnBox>
+                  <SortNew>최신등록순</SortNew>
+                  <Sort>마감임박순</Sort>
+                  <Sort>고가순</Sort>
+                </BtnBox>
+              </SortBar>
+            </BarWrapper>
+            <Card>
+              <ImgBox>
+                <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/mobile/modules/custom-project/category-images/custom_project_category_43_1.jpg" />
+              </ImgBox>
+              <TextBox>
+                <CardTitle>
+                  <Dday>D-12</Dday>
+                  <span></span>
+                </CardTitle>
+                <IconBox></IconBox>
+              </TextBox>
+            </Card>
           </CardContainer>
         </ListContainer>
       </Container>
@@ -296,7 +346,7 @@ const BtnToggle = styled.button`
   background-color: #ffffff;
   padding: 0 0 0 16px;
   position: absolute;
-  right: 10px;
+  right: 0px;
   :hover {
     color: #222;
   }
@@ -314,10 +364,107 @@ const CardContainer = styled.div`
   width: 962px;
   margin-left: 24px;
 `;
+const BarWrapper = styled.div`
+  width: 962px;
+  display: flex;
+`;
 const SearchBar = styled.div`
-  width: 100%;
+  width: 675px;
   height: 55.5px;
   border: 1px solid #e4e5ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  input {
+    width: 625px;
+    height: 20px;
+    border: none;
+    caret-color: #ffd400;
+    color: #4d4d4d;
+    font: 500 15px MetroSans;
+  }
+  input:focus {
+    outline: none;
+  }
+  input::-ms-input-placeholder {
+    color: #ccc;
+    font: 600 15px MetroSans;
+  }
+  input::-webkit-input-placeholder {
+    color: #ccc;
+    font: 600 15px MetroSans;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+  }
 `;
-const Card = styled.div``;
+const Erase = styled.img`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  padding-right: 30px;
+  cursor: pointer;
+`;
+const SortBar = styled.div`
+  width: 287px;
+  height: 55.5px;
+  border: 1px solid #e4e5ed;
+  border-left: 0px;
+`;
+const BtnBox = styled.div`
+  height: 55.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    padding: 10px;
+  }
+`;
+const Sort = styled.div`
+  font: 500 15px MetroSans;
+  color: #4d4d4d;
+`;
+const SortNew = styled.div`
+  font: 900 15px MetroSans;
+  color: #4d4d4d;
+`;
+const Card = styled.div`
+  width: 962px;
+  height: 160px;
+  padding: 34px 0;
+  border-bottom: 1px solid #f2f3f7;
+  display: flex;
+`;
+const ImgBox = styled.div`
+  background: orange;
+  width: 130px;
+  height: 160px;
+  img {
+    width: 130px;
+    height: 130px;
+    border-radius: 4px;
+  }
+`;
+const TextBox = styled.div`
+  width: 807px;
+  height: 160px;
+  background: green;
+  margin-left: 25px;
+`;
+const CardTitle = styled.div``;
+const Dday = styled.span`
+  padding: 1px 5px;
+  color: white;
+  background-color: #9bb3ca;
+  border-radius: 4px;
+  top: 10px;
+  left: 10px;
+  font: 900 13px MetroSans;
+`;
+const IconBox = styled.div``;
 export default ProjectListsCopy;
