@@ -9,6 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const ProjectLists = () => {
+  // checkbox
+  const [check, setCheck] = useState(false);
+  if (check === true) {
+    console.log("check!");
+    // document.getElementsByClassName(`checkthis${1}`).prop(checked, true);
+  }
+
   // toggle menu
   const [menu, setMenu] = useState([
     false,
@@ -24,6 +31,7 @@ const ProjectLists = () => {
   // input erase button
   const [text, setText] = useState("");
   const [btn, setBtn] = useState(false);
+
   const onChange = (e) => {
     setText(e.target.value);
     if (e.target.value !== "") {
@@ -36,26 +44,7 @@ const ProjectLists = () => {
     setText("");
     setBtn(!btn);
   };
-  // checkbox 단일 선택
-  const [checkItems, setCheckItems] = useState([]);
-  const handleSingleCheck = (checked, id) => {
-    if (checked) {
-      setCheckItems([...checkItems, id]);
-    } else {
-      setCheckItems(checkItems.filter((el) => el !== id));
-    }
-  };
-  // checkbox 전체 선택
-  const handleAllCheck = (checked) => {
-    if (checked) {
-      const idArray = [];
-      mainCategory.forEach((el) => idArray.push(el.id));
-      setCheckItems(idArray);
-    } else {
-      setCheckItems([]);
-    }
-    console.log(checkItems);
-  };
+
   const mainCategory = [
     ["IT·프로그래밍"],
     ["디자인"],
@@ -172,12 +161,12 @@ const ProjectLists = () => {
                 <>
                   <CheckItem>
                     <CheckBox
-                      name={`checkAll${idx}`}
                       type="checkbox"
                       onClick={() => {
                         let copy = [...menu];
                         copy[idx] = true;
                         setMenu(copy);
+                        setCheck(!check);
                       }}
                     />
                     <CheckLabel>{list}</CheckLabel>
@@ -201,7 +190,10 @@ const ProjectLists = () => {
                         return (
                           <CheckSubBox key={category.idx}>
                             <CheckSubItem>
-                              <CheckBox type="checkbox" />
+                              <CheckBox
+                                type="checkbox"
+                                className={`checkthis${idx}`}
+                              />
                               <CheckSubLabel>{list}</CheckSubLabel>
                             </CheckSubItem>
                           </CheckSubBox>
@@ -239,138 +231,90 @@ const ProjectLists = () => {
                 </BtnBox>
               </SortBar>
             </BarWrapper>
-            <Card>
-              <ImgBox>
-                <div />
-              </ImgBox>
-              <TextBox>
-                <TitleWrapper>
-                  <CardTitle>
-                    <Dday>D-12</Dday>
-                    <Title>LED제어 IOT컨트롤러</Title>
-                  </CardTitle>
-                  <IconBox></IconBox>
-                </TitleWrapper>
-                <SubTitle>
-                  <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
-                </SubTitle>
-                <Comment>
-                  ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                  도로교통시설물 대신 자사 제품인 LED 미디어 글라스를 이용하여
-                  민간 및 지자체에 메시지와 다양한 정보를 제공 할 수 있는 LED
-                  전자 배너 개발하여 양산하는 프로젝트입니다. 유무선 통신 (LTE,
-                  Wi-Fi, Ethernet)을 이용하여 설치 장소의 날씨, 미세먼지, 시간,
-                  교통 등 다양한 정보를 PC 또는 스마트폰으로 제어 하여 전자
-                  배너에 출력 할 수 있는 컨트롤러를 개발하는 것이 목표입니다.
-                </Comment>
-                <InfoWrapper>
-                  <InfoBox>
-                    <InfoTitle>예산</InfoTitle>
-                    <Info>50,000,000원</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>작업 기간</InfoTitle>
-                    <Info>90일</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>받은 제안</InfoTitle>
-                    <Info>1개</Info>
-                  </InfoBox>
-                </InfoWrapper>
-              </TextBox>
-            </Card>
-            <Card>
-              <ImgBox>
-                <div />
-              </ImgBox>
-              <TextBox>
-                <TitleWrapper>
-                  <CardTitle>
-                    <Dday>D-12</Dday>
-                    <Title>LED제어 IOT컨트롤러</Title>
-                  </CardTitle>
-                  <IconBox></IconBox>
-                </TitleWrapper>
-                <SubTitle>
-                  <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
-                </SubTitle>
-                <Comment>
-                  ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                  도로교통시설물 대신 자사 제품인 LED 미디어 글라스를 이용하여
-                  민간 및 지자체에 메시지와 다양한 정보를 제공 할 수 있는 LED
-                  전자 배너 개발하여 양산하는 프로젝트입니다. 유무선 통신 (LTE,
-                  Wi-Fi, Ethernet)을 이용하여 설치 장소의 날씨, 미세먼지, 시간,
-                  교통 등 다양한 정보를 PC 또는 스마트폰으로 제어 하여 전자
-                  배너에 출력 할 수 있는 컨트롤러를 개발하는 것이 목표입니다.
-                </Comment>
-                <InfoWrapper>
-                  <InfoBox>
-                    <InfoTitle>예산</InfoTitle>
-                    <Info>50,000,000원</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>작업 기간</InfoTitle>
-                    <Info>90일</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>받은 제안</InfoTitle>
-                    <Info>1개</Info>
-                  </InfoBox>
-                </InfoWrapper>
-              </TextBox>
-            </Card>
-            <Card>
-              <ImgBox>
-                <div />
-              </ImgBox>
-              <TextBox>
-                <TitleWrapper>
-                  <CardTitle>
-                    <Dday>D-12</Dday>
-                    <Title>LED제어 IOT컨트롤러</Title>
-                  </CardTitle>
-                  <IconBox></IconBox>
-                </TitleWrapper>
-                <SubTitle>
-                  <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
-                </SubTitle>
-                <Comment>
-                  ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                  도로교통시설물 대신 자사 제품인 LED 미디어 글라스를 이용하여
-                  민간 및 지자체에 메시지와 다양한 정보를 제공 할 수 있는 LED
-                  전자 배너 개발하여 양산하는 프로젝트입니다. 유무선 통신 (LTE,
-                  Wi-Fi, Ethernet)을 이용하여 설치 장소의 날씨, 미세먼지, 시간,
-                  교통 등 다양한 정보를 PC 또는 스마트폰으로 제어 하여 전자
-                  배너에 출력 할 수 있는 컨트롤러를 개발하는 것이 목표입니다.
-                </Comment>
-                <InfoWrapper>
-                  <InfoBox>
-                    <InfoTitle>예산</InfoTitle>
-                    <Info>50,000,000원</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>작업 기간</InfoTitle>
-                    <Info>90일</Info>
-                  </InfoBox>
-                  <Divider />
-                  <InfoBox>
-                    <InfoTitle>받은 제안</InfoTitle>
-                    <Info>1개</Info>
-                  </InfoBox>
-                </InfoWrapper>
-              </TextBox>
-            </Card>
+            {Array.from({ length: 10 }, (item, idx) => {
+              return (
+                <Card kkey={idx}>
+                  <ImgBox>
+                    <div />
+                  </ImgBox>
+                  <TextBox>
+                    <TitleWrapper>
+                      <CardTitle>
+                        <Dday>D-12</Dday>
+                        <Title>LED제어 IOT컨트롤러</Title>
+                      </CardTitle>
+                      <IconBox></IconBox>
+                    </TitleWrapper>
+                    <SubTitle>
+                      <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
+                    </SubTitle>
+                    <Comment>
+                      ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
+                      도로교통시설물 대신 자사 제품인 LED 미디어 글라스를
+                      이용하여 민간 및 지자체에 메시지와 다양한 정보를 제공 할
+                      수 있는 LED 전자 배너 개발하여 양산하는 프로젝트입니다.
+                      유무선 통신 (LTE, Wi-Fi, Ethernet)을 이용하여 설치 장소의
+                      날씨, 미세먼지, 시간, 교통 등 다양한 정보를 PC 또는
+                      스마트폰으로 제어 하여 전자 배너에 출력 할 수 있는
+                      컨트롤러를 개발하는 것이 목표입니다.
+                    </Comment>
+                    <InfoWrapper>
+                      <InfoBox>
+                        <InfoTitle>예산</InfoTitle>
+                        <Info>50,000,000원</Info>
+                      </InfoBox>
+                      <Divider />
+                      <InfoBox>
+                        <InfoTitle>작업 기간</InfoTitle>
+                        <Info>90일</Info>
+                      </InfoBox>
+                      <Divider />
+                      <InfoBox>
+                        <InfoTitle>받은 제안</InfoTitle>
+                        <Info>1개</Info>
+                      </InfoBox>
+                    </InfoWrapper>
+                  </TextBox>
+                </Card>
+              );
+            })}
+
+            <Pagination>
+              <ul>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    &lt;
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="/list/1">
+                    1
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="/list/2">
+                    2
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="/list/3">
+                    3
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    &gt;
+                  </a>
+                </li>
+              </ul>
+            </Pagination>
           </CardContainer>
         </ListContainer>
       </Container>
     </>
   );
 };
+
 const Container = styled.div`
   width: 1170px;
   /* background: green; */
@@ -425,7 +369,6 @@ const CheckSubItem = styled.label`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-
   width: 168px;
 `;
 const CheckSubBox = styled.div`
@@ -613,7 +556,7 @@ const Dday = styled.div`
   color: white;
   background-color: #9bb3ca;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -682,5 +625,27 @@ const Divider = styled.div`
   border-right: 2px solid #e4e5ed;
   margin: 0 20px 0 32px;
 `;
-
+const Pagination = styled.div`
+  margin-top: 47px;
+  width: 962px;
+  height: 76.5px;
+  display: flex;
+  justify-content: center;
+  li {
+    font-size: 14px;
+    color: #9a9ba7;
+    font-weight: 500;
+    list-style: none;
+    text-decoration: none;
+    float: left;
+    margin-left: 20px;
+  }
+  a {
+    color: #9a9ba7;
+    text-decoration: none;
+    :link {
+      text-decoration: none;
+    }
+  }
+`;
 export default ProjectLists;
