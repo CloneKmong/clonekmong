@@ -4,14 +4,19 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-const ProjectLists = () => {
-  // checkbox
-  // const [check, setCheck] = useState(false);
-
-  // if (check === true) {
-  //   console.log("check!");
-  //   document.getElementsByName("checkthis1").checked;
-  // }
+const ProjectLists2 = () => {
+  //checkbox
+  // 메인 체크박스의 state 변경을 위해 useState 사용
+  const [check, setCheck] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   // toggle menu
   const [menu, setMenu] = useState([
@@ -164,7 +169,15 @@ const ProjectLists = () => {
                         let copy = [...menu];
                         copy[idx] = true;
                         setMenu(copy);
-                        // setCheck(!check);
+                        {
+                          /* check 배열에 메인카테고리 체크박스의 체크여부를 저장*/
+                        }
+                        let copyCheck = [...check];
+                        copyCheck[idx] = document.getElementById(
+                          `check${idx}`
+                        ).checked;
+                        setCheck(copyCheck);
+                        //  메인 체크박스와 서브 체크박스 동일한 체크상태로 만들어 주기 위해 연결
                         document
                           .getElementsByName(`checkthis${idx}`)
                           .forEach((checkbox) => {
@@ -195,9 +208,11 @@ const ProjectLists = () => {
                         return (
                           <CheckSubBox key={category.index}>
                             <CheckSubItem>
+                              {/* 서브카테고리 체크박스의 check 상태값(checked)에 메인카테고리 체크박스의 체크 state를 넣음*/}
                               <CheckBox
                                 type="checkbox"
                                 name={`checkthis${idx}`}
+                                checked={check[idx]}
                               />
                               <CheckSubLabel>{list}</CheckSubLabel>
                             </CheckSubItem>
@@ -681,4 +696,4 @@ const Pagination = styled.div`
     }
   }
 `;
-export default ProjectLists;
+export default ProjectLists2;
