@@ -17,16 +17,28 @@ const SignUp = () => {
   let [businessState, setBusinessState] = React.useState(false);
   let [interestState, setInterestState] = React.useState(false);
 
+  let [selectJob, setSelectJob] = React.useState("직업을 선택해 주세요.");
+  let [selectBusiness, setSelectBusiness] = React.useState("비즈니스 분야를 선택해 주세요.");
+  let [selectInterest, setSelectInterest] = React.useState("관심사를 선택해 주세요.");
+
   const jobopenClose = () => {
     setJobState(!jobState)
+    setBusinessState(false)
+    setInterestState(false)
   }
 
   const businessopenClose = () => {
     setBusinessState(!businessState)
+    setJobState(false)
+    setInterestState(false)
   }
   const interestopenClose = () => {
     setInterestState(!interestState)
+    setJobState(false)
+    setBusinessState(false)
   }
+
+  
 
 
   const JobSelect = () => {
@@ -40,7 +52,7 @@ const SignUp = () => {
         className= "radio" 
         id= {item} 
         name= {item}></input>
-        <label for={item} className="select-option">{item}</label>
+        <label for={item} className="select-option" onClick={(item) => (setSelectJob(item.target.innerText), setJobState(!jobState))}>{item}</label>
        </div>
       ))
       }
@@ -60,7 +72,7 @@ const SignUp = () => {
         className= "radio" 
         id= {item} 
         name= {item}></input>
-        <label for={item} className="select-option">{item}</label>
+        <label for={item} className="select-option" onClick={(item) => (setSelectBusiness(item.target.innerText), setBusinessState(!businessState))}>{item}</label>
        </div>
       ))
       }
@@ -68,18 +80,25 @@ const SignUp = () => {
     )
   }
 
+  const InterestGet = (get) => {
+    // 시간이 되면 중복까지 구현 도전 
+    setSelectInterest(get);
+    setInterestState(!interestState);
+
+  }
+
   const InterestSelect = () => {
 
     return (
       <div className="options-container business-container">
-      {interestList.map((item) => (
+      {interestList.map((item, index) => (
          <div className="option">
         <input 
         type= "radio" 
         className= "radio" 
         id= {item} 
         name= {item}></input>
-        <label for={item} className="select-option">{item}</label>
+        <label for={item} className="select-option" onClick={()=>{InterestGet(item)}}>{item}</label>
        </div>
       ))
       }
@@ -96,6 +115,8 @@ const SignUp = () => {
     
 
   }
+
+
 
 
  
@@ -134,7 +155,7 @@ const SignUp = () => {
         
         <div className="select-box">
         <div className="selected"
-              onClick={jobopenClose}>직업을 선택해 주세요. 
+              onClick={jobopenClose}>{selectJob}
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="down-svg">
           <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
           </svg>
@@ -163,7 +184,7 @@ const SignUp = () => {
         <div className="signup_label">비즈니스 분야</div>
         <div className="select-box">
         <div className="selected"
-              onClick={businessopenClose}>비즈니스 분야를 선택해 주세요. 
+              onClick={businessopenClose}>{selectBusiness}
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="down-svg">
           <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
           </svg>
@@ -194,7 +215,7 @@ const SignUp = () => {
 
         <div className="select-box">
         <div className="selected"
-              onClick={interestopenClose}>관심사를 선택해 주세요. 
+              onClick={interestopenClose}>{selectInterest}
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="down-svg">
           <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
           </svg>
