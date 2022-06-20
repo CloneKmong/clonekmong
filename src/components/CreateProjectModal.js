@@ -1,6 +1,11 @@
 import React from "react";
 import "../App.css";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+
+const BigCategory = ["IT·프로그래밍"];
+const SmallCatergory = ["웹사이트 신규 제작"];
 
 const CreateProjectModal = () => {
   const [ isBudget, setIsBudget ] = React.useState( false );

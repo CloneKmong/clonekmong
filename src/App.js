@@ -34,6 +34,7 @@ function App() {
         <Route path="/list" element={<ProjectLists />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/create" element={<CreateProjectModal />} />
       </Routes>
       <Footer />
     </div>
