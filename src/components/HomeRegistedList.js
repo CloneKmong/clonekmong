@@ -24,7 +24,10 @@ const HomeRegistedList = () => {
         }
       }
 
-    
+    const GoDtail = (item) => {
+      const id = item.project_id
+      navigate(`/detail/${id}`);
+    }
 
       return (
         <>
@@ -32,7 +35,7 @@ const HomeRegistedList = () => {
           <MainRegistedList key={index}>
           <MainRegistedListImg />
           <MainRegistedListContentWrap>
-            <MainRegistedListContentTitle onClick={()=> navigate(`/detail/${item.project_id}`)}>
+            <MainRegistedListContentTitle onClick={()=>GoDtail(item)}>
               {item.title}
             </MainRegistedListContentTitle>
             <MainRegistedListContentBody>

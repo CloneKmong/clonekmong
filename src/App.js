@@ -35,7 +35,7 @@ function App() {
         <Route path="/list" element={<ProjectLists />} />
         <Route path="/list2" element={<ProjectLists2 />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/detail:projectId" element={<Detail />} />
+        <Route path="/detail/:projectId" element={<Detail />} />
         <Route path="/create" element={<CreateProjectModal />} />
       </Routes>
       <Footer />
