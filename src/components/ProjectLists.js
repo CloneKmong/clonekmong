@@ -297,28 +297,28 @@ const ProjectLists = () => {
 
             <Pagination>
               <ul>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     &lt;
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="/list/1">
+                <li className="page-item">
+                  <a className="page-link" href="/list/1">
                     1
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="/list/2">
+                <li className="page-item">
+                  <a className="page-link" href="/list/2">
                     2
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="/list/3">
+                <li className="page-item">
+                  <a className="page-link" href="/list/3">
                     3
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     &gt;
                   </a>
                 </li>
