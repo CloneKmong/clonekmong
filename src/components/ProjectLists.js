@@ -334,7 +334,6 @@ const ProjectLists = () => {
 
 const Container = styled.div`
   width: 1170px;
-  /* background: green; */
   margin: 0 auto;
 `;
 const ListBanner = styled.img`
