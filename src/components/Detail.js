@@ -1,18 +1,39 @@
 import React from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getProjectDetail } from "../redux/modules/GaYeonSlice"
 
 const Detail = () => {
+
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  const projectDetail = useSelector( state => state.GaYeon.object );
+  const [getDetail, setGetDetail] = React.useState(null);
+
+
+  React.useEffect (() => {
+   const projectId = params.projectId;
+     dispatch( getProjectDetail(projectId));  
+  },[]);
+
+  console.log("projectDetail===> ", projectDetail);
+
+  
+
   return (
     <>
       <Container>
         <LeftBox>
           <Category>
-            <span>IT·프로그래밍</span> / <span>임베디드 시스템</span>
+            <span>{projectDetail?.bigCategory}</span> / <span>{projectDetail?.smallCategory}</span>
           </Category>
-          <Title>LED제어 IOT컨트롤러</Title>
+          <Title>{projectDetail?.title}</Title>
           <TextWrapper>
             <SubTitle>프로젝트 진행 방식</SubTitle>
-            <SubText>외주 : 외부 프리랜서 & 사업자와 프로젝트 진행</SubText>
+            <SubText>{projectDetail?.progressMethod}</SubText>
           </TextWrapper>
           <TextWrapper>
             <SubTitle>개인 / 기업 여부</SubTitle>
@@ -21,7 +42,8 @@ const Detail = () => {
           <TextWrapper>
             <SubTitle>구체적인 내용 설명</SubTitle>
             <SubText>
-              ※프로젝트의 현재 상황
+            {projectDetail?.description}
+              {/* ※프로젝트의 현재 상황
               <br />
               - 프로젝트 소개 : 기존 현수막과 도로교통시설물 대신 자사 제품인
               LED 미디어 글라스를 이용하여 민간 및 지자체에 메시지와 다양한
@@ -78,16 +100,22 @@ const Detail = () => {
               <br />
               <br />
               자사 제품 참고 영상 :
-              https://www.youtube.com/channel/UCMog3n6toGL2IyTKT3VaTfw
+              https://www.youtube.com/channel/UCMog3n6toGL2IyTKT3VaTfw */}
             </SubText>
           </TextWrapper>
           <TextWrapper>
             <SubTitle>프로젝트 작업 마감 일자</SubTitle>
-            <SubText>2022.10.01</SubText>
+            <SubText>
+            {projectDetail?.dueDateForApplication}
+              {/* 2022.10.01 */}
+
+            </SubText>
           </TextWrapper>
           <TextWrapper>
             <SubTitle>작업 기간 (일)</SubTitle>
-            <SubText>90</SubText>
+            <SubText>
+            {projectDetail?.workingPeriod}
+              </SubText>
           </TextWrapper>
         </LeftBox>
         <RightBox>
@@ -102,7 +130,7 @@ const Detail = () => {
             </TaxBox>
             <BudgetBox>
               <ProfileTitle>예산</ProfileTitle>
-              <Budget>50,000,000원</Budget>
+              <Budget>{projectDetail?.budget}원</Budget>
             </BudgetBox>
             <BtnPropose>제안하기</BtnPropose>
             <Msg>
