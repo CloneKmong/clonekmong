@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 import { getMainProjectList } from "../redux/modules/KmongSlice"
 
 const HomeRegistedList = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const projectList = useSelector( state => state.Kmong.list );
  
@@ -22,13 +24,15 @@ const HomeRegistedList = () => {
         }
       }
 
+    
+
       return (
         <>
         {projectList.map((item, index) => (
           <MainRegistedList key={index}>
           <MainRegistedListImg />
           <MainRegistedListContentWrap>
-            <MainRegistedListContentTitle>
+            <MainRegistedListContentTitle onClick={()=> navigate(`/detail/${item.project_id}`)}>
               {item.title}
             </MainRegistedListContentTitle>
             <MainRegistedListContentBody>
@@ -219,6 +223,7 @@ const MainRegistedListContentWrap = styled.div`
 
 const MainRegistedListContentTitle = styled.div`
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const MainRegistedListContentBody = styled.div`
