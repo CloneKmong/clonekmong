@@ -5,6 +5,16 @@ const MyKmong = () => {
 
   const [toggle, setToggle] = React.useState(true);
 
+  const [getProject, setGetProject] = React.useState({
+    "project_id" : "777777",
+    "imageUrl" : "https://d2v80xjmx68n4w.cloudfront.net/assets/mobile/modules/custom-project/category-images/custom_project_category_42_4.jpg",
+    "title" : "크몽 사이트 클론 중입니다",
+    "budget" : "20,000,000",
+    "bigCategory" : "IT·프로그래밍",
+    "smallCategory" : "웹사이트 신규 제작",
+  });
+
+
    return (
     <>
     <MyKmongWrap>
@@ -29,7 +39,7 @@ const MyKmong = () => {
         </ul>
 
       </SideMenuWrap>
-      <ContentWrap>
+      <ContentWrap getProject={getProject}>
       <div className="title_wrap">
                 내 프로젝트
             </div>
@@ -38,13 +48,13 @@ const MyKmong = () => {
         <div className="project_content">
           <div className="title_category">
             <div className="category_wrap">
-            <span id="project_id">#777777</span>
-            <span id="project_category">IT·프로그래밍 / 웹사이트 신규 제작</span></div>
-            <p id="project_title">크몽 사이트 클론 중입니다</p>
+            <span id="project_id">#{getProject.project_id}</span>
+            <span id="project_category">{getProject.bigCategory} / {getProject.smallCategory}</span></div>
+            <p id="project_title">{getProject.title}</p>
           </div>
           <div className="amount_wrap">
             <span>예산</span>
-            <span id="amount"><b>20,000,000</b>원</span>
+            <span id="amount"><b>{getProject.budget}</b>원</span>
           </div>
         </div>
         <div className="button_wrap">
@@ -170,7 +180,7 @@ flex: 1;
     background-position: 50%;
     background-size: cover;
     background-repeat: no-repeat;
-  background-image: url(https://d2v80xjmx68n4w.cloudfront.net/assets/mobile/modules/custom-project/category-images/custom_project_category_42_4.jpg);
+  background-image: url(${(props) => props.getProject.imageUrl});
   
 }
 
