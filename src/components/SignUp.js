@@ -116,13 +116,63 @@ const SignUp = () => {
 
   }
 
+  // 회원가입 유효성 검사
+
+  const email_ref = React.useRef(null);
+  const password_ref = React.useRef(null);
+  const confirmPassword_ref = React.useRef(null);
+  const name_ref = React.useRef(null);
+
+  const [email_msg, set_email_msg] = React.useState(null);
+  const [email_check, set_email_check] = React.useState(false);
+  const [pw_msg, set_pw_msg] = React.useState(null);
+  const [check_pw, set_check_pw] = React.useState(null);
+  const [confirm_pw_msg, set_confirm_pw_msg] = React.useState(null);
+
+  const isEmail = (asValue) => {
+    var regExp = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    return regExp.test(asValue); 
+  }
+
+  const checkEmailState = (e) => {
+    let id = e.target.value
+
+    if (id === "") {
+      set_email_msg("");
+    } else if (!isEmail(id)) {
+      set_email_msg("이메일 형식이 아닙니다.");
+    } else {
+      set_email_msg("");
+    }
+  }
+
+  const checkPwState = (e) => {
+    let pw = e.target.value
+    if (pw === "" || pw.length >= 6) {
+      set_pw_msg("");
+      set_check_pw(pw);
+    } else if (pw.length < 6) {
+      set_pw_msg("6자 이상이어야 합니다.");
+    } 
+  }
+
+  const confirmPwState = (e) => {
+    let confirm_pw = e.target.value
+    let get_pw = check_pw
+    if (get_pw !== confirm_pw) {
+      set_confirm_pw_msg("비밀번호를 확인해 주세요.")
+    } else if (get_pw === confirm_pw || confirm_pw === "") {
+      set_confirm_pw_msg("")
+    } 
+  }
+
 
 
 
  
     return (
       <>
-      <h2>Kmong</h2>
+      <KmongTitle><svg width="85" height="100%" viewBox="0 0 85 26" xmlns="http://www.w3.org/2000/svg"><path d="M77.69 4.86c3.975 0 7.197 3.215 7.197 7.18l-.002.055h.002c.073 3.477.074 5.769.003 6.874-.108 1.659-.724 3.372-1.947 4.693A7.21 7.21 0 0 1 77.593 26c-2.724 0-4.998-.984-6.653-2.921l-.05-.059 3.226-2.684c.837.997 1.938 1.48 3.478 1.48.9 0 1.67-.358 2.259-.992.515-.556.817-1.263.832-1.813v-.443a7.186 7.186 0 0 1-2.995.65c-3.975 0-7.197-3.214-7.197-7.179 0-3.964 3.222-7.178 7.197-7.178zm-32.13-.225c4.131 0 7.48 3.34 7.48 7.46 0 4.121-3.349 7.462-7.48 7.462s-7.48-3.34-7.48-7.461c0-4.12 3.349-7.461 7.48-7.461zM4.533 0v10.354L8.623 5.2h5.309l-5.337 6.726 5.572 7.065h-4.98L4.534 13.42v5.572H0V0h4.533zM29.92 4.86a6.233 6.233 0 0 1 6.233 6.234v7.897H31.96v-7.908a2.04 2.04 0 0 0-4.074-.152l-.006.152v7.908h-4.193v-7.908a2.04 2.04 0 0 0-4.075-.152l-.005.152v7.908h-4.194v-7.897a6.233 6.233 0 0 1 10.371-4.662 6.201 6.201 0 0 1 4.136-1.571zm31.847 0a6.8 6.8 0 0 1 6.8 6.8v7.331h-4.194v-7.34a2.607 2.607 0 0 0-2.441-2.602l-.165-.006a2.607 2.607 0 0 0-2.602 2.442l-.005.165v7.34l-4.193.001v-7.33a6.8 6.8 0 0 1 6.8-6.8zM45.56 8.818a3.282 3.282 0 0 0-3.287 3.279 3.282 3.282 0 0 0 3.287 3.278 3.282 3.282 0 0 0 3.287-3.278 3.282 3.282 0 0 0-3.287-3.279zm32.13.226a3 3 0 0 0-3.003 2.996 3 3 0 0 0 3.003 2.996 3 3 0 0 0 3.003-2.996 3 3 0 0 0-3.003-2.996z" fill="#212224" fill-rule="evenodd"></path></svg></KmongTitle>
       <SignUpWrap>
       <h1>딱 이것만 체크하면 가입 완료!</h1>
 
@@ -131,19 +181,26 @@ const SignUp = () => {
       <div className="label_wrap">
       <label>
         <div className="signup_label">이메일</div>
-        <div><input type="email" placeholder="이메일을 입력해 주세요."></input></div>
+        <div><input type="email" placeholder="이메일을 입력해 주세요." ref={email_ref} onChange={checkEmailState}></input></div>
       </label>
       </div>
+      <CheckMsg>{email_msg}</CheckMsg>
 
       {/***** 비밀번호 *****/}
 
       <div className="label_wrap">
       <label>
         <div className="signup_label">비밀번호</div>
-        <div><input type="password" placeholder="비밀번호를 입력해 주세요. (6자리 이상)"></input></div>
-        <div><input type="password" placeholder="비밀번호를 한번 더 입력해 주세요."></input></div>
+        <div><input type="password" placeholder="비밀번호를 입력해 주세요. (6자리 이상)" ref={password_ref} onChange={checkPwState}></input></div></label></div>
+        <CheckMsg>{pw_msg}</CheckMsg>
+        
+        <div className="label_wrap">
+        <label>
+        <div><input type="password" placeholder="비밀번호를 한번 더 입력해 주세요." ref={confirmPassword_ref} onChange={confirmPwState}></input></div>
       </label>
+      
       </div>
+      <CheckMsg>{confirm_pw_msg}</CheckMsg>
 
       {/***** 직업 *****/}
 
@@ -240,24 +297,24 @@ const SignUp = () => {
 
       <div className="agree_wrap">
         <div className="agree_all"><label onClick={AgreeAll}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg><input type="checkbox" className="all_checkbox"/>모두 동의합니다.</label></div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg><input type="checkbox" className="all_checkbox"/><span>모두 동의합니다.</span></label></div>
           <div><label id="red_star">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg>
         
-        <input type="checkbox" checked={agreeAllState}/>만 14세 이상입니다.</label></div>
+        <input type="checkbox" checked={agreeAllState} className="checkBox"/><span>만 14세 이상입니다.</span></label></div>
 
         <div><label id="red_star">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg>
         
-        <input type="checkbox" checked={agreeAllState}/><u>서비스 이용약관</u>에 동의합니다.</label></div>
+        <input type="checkbox" checked={agreeAllState} className="checkBox"/><span><u>서비스 이용약관</u>에 동의합니다.</span></label></div>
         <div><label id="red_star">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg>
-        <input type="checkbox" checked={agreeAllState}/><u>개인정보 수집/이용</u>에 동의합니다.</label></div>
+        <input type="checkbox" checked={agreeAllState} className="checkBox"/><span><u>개인정보 수집/이용</u>에 동의합니다.</span></label></div>
         <div><label>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg>
-        <input type="checkbox" checked={agreeAllState}/>이벤트 할인 혜택 알림 수신에 동의합니다. (선택)</label></div>
+        <input type="checkbox" checked={agreeAllState} className="checkBox"/><span>이벤트 할인 혜택 알림 수신에 동의합니다. (선택)</span></label></div>
         <div><label><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" className="agree_check"><path d="M0 0h24v24H0V0z" fill="none"></path><path d={agreePath}></path></svg>
-        <input type="checkbox" checked={agreeAllState}/>장기 미접속 시 계정 활성 상태 유지합니다. (선택)</label></div>
+        <input type="checkbox" checked={agreeAllState} className="checkBox"/><span>장기 미접속 시 계정 활성 상태 유지합니다. (선택)</span></label></div>
       </div>
 
     
@@ -268,16 +325,42 @@ const SignUp = () => {
 
       </SignUpWrap>
 
-      <p>크몽은 회원님의 원활한 서비스 이용에 필요한 정보를<br /> 적절한 전자적 수단을 통해 제공하고 있습니다.</p>
+
+
+      <KmongInfo>크몽은 회원님의 원활한 서비스 이용에 필요한 정보를<br /> 적절한 전자적 수단을 통해 제공하고 있습니다.</KmongInfo>
       
       </>
     )
 }
 
+let KmongInfo = styled.p`
+    margin: 24px 0px;
+    font-size: 13px;
+    color: rgb(154, 155, 167);
+    text-align: center;
+    line-height: normal;
+
+`
+
+let KmongTitle = styled.div`
+margin:0 auto;
+position:relative;
+display:flex;
+width:85px;
+`
+let CheckMsg = styled.div`
+color:red;
+height:30px;
+position:relative;
+box-sizing:border-box;
+font-size:13px;
+margin-top:-10px;
+`
+
 let SignUpWrap = styled.div`
 position:relative;
 width: 560px;
-height: 1030px;
+height: 1080px;
 padding: 56px 80px;
 margin: 0 auto;
 border: 1px solid #e4e5ed;
@@ -308,7 +391,7 @@ box-sizing: border-box;
   color: rgb(255, 114, 98);
  }
 
-  input {
+  input[type="email"],input[type="password"] {
     width: 100%;
     height: 52px;
     border-radius: 4px;
@@ -430,6 +513,10 @@ box-sizing: border-box;
      label {
       font-size: 14px;
      }
+
+     span {
+      margin-left: 5px;
+     }
   }
 
   #red_star::after {
@@ -457,6 +544,8 @@ box-sizing: border-box;
     color:#fff;
     display:none;
   }
+
+  
 
  
 
