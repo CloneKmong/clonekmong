@@ -1,7 +1,84 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const SERVER_URL = "";
+
 const Login = () => {
+  // 지용 코드 시작
+  const navigate = useNavigate();
+  const [email_msg, set_email_msg] = React.useState(null);
+  const [email_check, set_email_check] = React.useState(false);
+  const [pw_msg, set_pw_msg] = React.useState(null);
+  const [check_pw, set_check_pw] = React.useState(null);
+  // 비밀번호 유효성 검사
+  const [isPassword, setIsPassword] = React.useState(false);
+  
+  const pw_Ref = React.useRef("");
+  const email_Ref = React.useRef("");
+
+  const isEmail = (asValue) => {
+    var regExp =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    return regExp.test(asValue);
+  };
+
+  const checkEmailState = () => {
+    let id = email_Ref.current.value;
+    if (id === "") {
+      set_email_msg("이메일을 입력해주세요.");
+      set_email_check( false );
+    } else if (!isEmail(id)) {
+      set_email_msg("이메일 형식이 아닙니다.");
+      set_email_check( false );
+    } else {
+      set_email_msg("");
+      set_email_check( true );
+      // 이메일 중복 검사하기 추가
+    }
+  };
+
+  const checkPwState = () => {
+    let pw = pw_Ref.current.value;
+    if( pw === "" ){
+      console.log("empty")
+      set_pw_msg("비밀번호를 입력해주세요.");
+      setIsPassword( false );
+    }
+    else if (pw.length >= 6) {
+      console.log("ok")
+      set_pw_msg("");
+      set_check_pw(pw);
+      setIsPassword( true );
+    } else if (pw.length < 6) {
+      console.log("no")
+      set_pw_msg("6자 이상이어야 합니다.");
+      setIsPassword( false );
+    }
+  };
+
+  const LoginClickEvent = async () => {
+    const LoginUserInfo = {
+      username: email_Ref.current.value,
+      password: pw_Ref.current.value
+    }
+    
+    checkEmailState();
+    checkPwState();
+    console.log( email_check, isPassword );
+    // if( email_check && isPassword ){
+    //   await axios.post(`${SERVER_URL}`, LoginUserInfo )
+    //   .then( res => console.log( res.data ))
+    //   .catch( e => console.log( e ) );
+    // }
+  }
+
+  const goToSignUpClickEvent = () => {
+    navigate("/signup");
+  }
+  // 지용 끝
     return (
       <>
       <LoginWrap>
@@ -17,17 +94,25 @@ const Login = () => {
           <div className="login_wrap">
           <h1>로그인</h1>
           <div className="input_wrap">
-            <input type="email" placeholder="이메일을 입력해 주세요." 
-            className="login_input"/></div>
+            <input 
+            ref={email_Ref}
+            type="email" placeholder="이메일을 입력해 주세요." 
+            className="login_input"/>
+            </div>
+            <CheckMsg>{email_msg}</CheckMsg>
           <div className="input_wrap">
-            <input type="password" placeholder="비밀번호를 입력해 주세요."
-            className="login_input" /></div>
+            <input 
+            ref={pw_Ref}
+            type="password" placeholder="비밀번호를 입력해 주세요."
+            className="login_input" />
+            </div>
+            <CheckMsg>{pw_msg}</CheckMsg>
 
-            <button>로그인</button>
+            <button onClick={LoginClickEvent}>로그인</button>
         
-              <div className="under_box">
+              <div className="under_box" style={{marginBottom:"15px"}}>
                 <label>
-                  <input type="checkbox" className="remember_check"></input>
+                  <input type="checkbox" className="remember_check" disabled={true}></input>
                   <span>로그인 유지</span>
                 </label>
                 <div className="search">
@@ -58,7 +143,7 @@ const Login = () => {
                   <b>10만원 할인혜택</b>
                   을 드립니다.
                 </p>
-                <button className="signup_button">
+                <button className="signup_button" onClick={goToSignUpClickEvent}>
                   크몽 회원가입 하기
                 </button>
               </SignUpBox>
@@ -292,7 +377,8 @@ margin-top: 16px;
     -webkit-box-align: center;
     align-items: center;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
+    cursor: not-allowed;
     text-decoration: none;
  }
 
@@ -336,5 +422,15 @@ let SignUpBox = styled.div`
   background-color: rgba(17, 106, 212, 0.1);
  }
 `
+// 지용 에러 메세지 
+
+let CheckMsg = styled.div`
+  color: red;
+  height: 30px;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 13px;
+  margin-top: -10px;
+`;
 
 export default Login;

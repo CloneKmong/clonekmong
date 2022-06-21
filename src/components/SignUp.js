@@ -192,7 +192,6 @@ const SignUp = () => {
   const email_ref = React.useRef(null);
   const password_ref = React.useRef(null);
   const confirmPassword_ref = React.useRef(null);
-  const name_ref = React.useRef(null);
 
   const [email_msg, set_email_msg] = React.useState(null);
   const [email_check, set_email_check] = React.useState(false);
@@ -264,6 +263,8 @@ const SignUp = () => {
 
   const SignUpClickEnvent = async () => {
     console.log("Job ", selectedJob, " Business ", selectedBusiness, " Interest ", selectedInterest );
+    console.log( isPasswordConfirm, isPasswordConfirm );
+    
     const SignUpUser = {
       username: email_ref.current.value, // email
       password: password_ref.current.value,

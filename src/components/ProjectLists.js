@@ -12,7 +12,6 @@ const ProjectLists = () => {
   //   console.log("check!");
   //   document.getElementsByName("checkthis1").checked;
   // }
-
   // toggle menu
   const [menu, setMenu] = useState([
     false,

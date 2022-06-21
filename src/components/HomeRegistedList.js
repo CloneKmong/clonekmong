@@ -1,7 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { getMainProjectList } from "../redux/modules/KmongSlice"
+
 const HomeRegistedList = () => {
+    const dispatch = useDispatch();
+    const projectList = useSelector( state => state.Kmong.list );
+    React.useEffect(()=>{
+      console.log("마운트 됨");
+      dispatch( getMainProjectList() );
+    },[]);
+
     return (<MainRegistedListWrap>
         <MainRegistedListTitle>등록된 프로젝트</MainRegistedListTitle>
         <MainRegistedListGridWrap>
