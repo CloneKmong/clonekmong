@@ -8,10 +8,61 @@ import { getMainProjectList } from "../redux/modules/KmongSlice"
 const HomeRegistedList = () => {
     const dispatch = useDispatch();
     const projectList = useSelector( state => state.Kmong.list );
+ 
     React.useEffect(()=>{
       console.log("마운트 됨");
       dispatch( getMainProjectList() );
     },[]);
+
+    const MainProjectList = () => {
+
+      const MakeBudget = (budget) => {
+        if(budget) {
+          return (budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+      }
+
+      return (
+        <>
+        {projectList.map((item, index) => (
+          <MainRegistedList key={index}>
+          <MainRegistedListImg />
+          <MainRegistedListContentWrap>
+            <MainRegistedListContentTitle>
+              {item.title}
+            </MainRegistedListContentTitle>
+            <MainRegistedListContentBody>
+              {item.discription}
+            </MainRegistedListContentBody>
+
+            <MainRegistedListContentBottom>
+              <MainRegistedIconWrap>
+                <MainRegistedOutWorkImg />
+                <span>외주</span>
+              </MainRegistedIconWrap>
+              <MainRegistedBottonDiv />
+              <MainRegstedMoneyWrap>
+                <MainRegstedMoneyImg />
+                <span>
+                  {MakeBudget(item.budget)}
+                  원
+                </span>
+              </MainRegstedMoneyWrap>
+              <MainRegistedBottonDiv />
+              <MainRegstedTimeWrap>
+                <MainRegstedTimeImg />
+                <span>{item.workingPeriod}</span>
+              </MainRegstedTimeWrap>
+            </MainRegistedListContentBottom>
+          </MainRegistedListContentWrap>
+        </MainRegistedList>
+        ))}
+        </>
+        
+      )
+
+      
+    }
 
     return (<MainRegistedListWrap>
         <MainRegistedListTitle>등록된 프로젝트</MainRegistedListTitle>
@@ -56,44 +107,7 @@ const HomeRegistedList = () => {
           </MainRegistedSectionTitleWrap>
           <MainRegistedDivUnderLine />
           <MainRegistedListsWrap>
-            <MainRegistedList>
-              <MainRegistedListImg />
-              <MainRegistedListContentWrap>
-                <MainRegistedListContentTitle>
-                  [상주]K사 SFA개발 java 개발자
-                </MainRegistedListContentTitle>
-                <MainRegistedListContentBody>
-                  프로젝트 : K*생명 SFA 개발 프로젝트 주요업무 : 시스템 개발
-                  우대사항 : spring tool 사용 / mybartis 또는 jpa 경험자 경력 :
-                  고급이상 기간 : 7/1 투입(~6.5m/m) 근무지 : 뱅뱅사거리
-                </MainRegistedListContentBody>
-
-                <MainRegistedListContentBottom>
-                  <MainRegistedIconWrap>
-                    <MainRegistedOutWorkImg />
-                    <span>외주</span>
-                  </MainRegistedIconWrap>
-                  <MainRegistedBottonDiv />
-                  <MainRegstedMoneyWrap>
-                    <MainRegstedMoneyImg />
-                    <span>
-                      {(7500000)
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                      원
-                    </span>
-                  </MainRegstedMoneyWrap>
-                  <MainRegistedBottonDiv />
-                  <MainRegstedTimeWrap>
-                    <MainRegstedTimeImg />
-                    <span>200일</span>
-                  </MainRegstedTimeWrap>
-                </MainRegistedListContentBottom>
-              </MainRegistedListContentWrap>
-            </MainRegistedList>
-            <MainRegistedList></MainRegistedList>
-            <MainRegistedList></MainRegistedList>
-            <MainRegistedList></MainRegistedList>
+            <MainProjectList />
           </MainRegistedListsWrap>
         </MainRegistedListGridWrap>
         <MainRegistedShowListsBtn>
