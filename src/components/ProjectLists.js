@@ -583,7 +583,7 @@ const Dday = styled.div`
   background-color: #9bb3ca;
   border-radius: 4px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center;

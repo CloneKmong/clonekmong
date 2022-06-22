@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const SERVER_URL = "";
+const SERVER_URL = "http://13.209.22.194";
 
 const SignUp = () => {
   const jobList = [
@@ -73,29 +73,28 @@ const SignUp = () => {
     React.useState("관심사를 선택해 주세요.");
 
   // 지용 상태 추가
-  const [ selectedJob, SetSelectedJob ] = React.useState( false );
-  const [ selectedBusiness, SetSelectedBusiness ] = React.useState( false );
-  const [ selectedInterest, SetSelectedInterest ] = React.useState( false );
+  const [selectedJob, SetSelectedJob] = React.useState(false);
+  const [selectedBusiness, SetSelectedBusiness] = React.useState(false);
+  const [selectedInterest, SetSelectedInterest] = React.useState(false);
 
   // 지용 navigate 추가
   const navigate = useNavigate();
-  
 
   const jobopenClose = () => {
     setJobState(!jobState);
-    setBusinessState(false)
-    setInterestState(false)
+    setBusinessState(false);
+    setInterestState(false);
   };
 
   const businessopenClose = () => {
     setBusinessState(!businessState);
-    setJobState(false)
-    setInterestState(false)
+    setJobState(false);
+    setInterestState(false);
   };
   const interestopenClose = () => {
     setInterestState(!interestState);
-    setJobState(false)
-    setBusinessState(false)
+    setJobState(false);
+    setBusinessState(false);
   };
 
   const JobSelect = () => {
@@ -117,7 +116,7 @@ const SignUp = () => {
                 onClick={(item) => {
                   setSelectJob(item.target.innerText);
                   setJobState(!jobState);
-                  SetSelectedJob( !selectedJob );
+                  SetSelectedJob(!selectedJob);
                 }}
               >
                 {item}
@@ -134,14 +133,14 @@ const SignUp = () => {
       <div className="options-container business-container">
         {businessList.map((item) => (
           <div className="option" key={item}>
-            <input type="radio" className="radio" id={item} name={item} ></input>
+            <input type="radio" className="radio" id={item} name={item}></input>
             <label
               for={item}
               className="select-option"
               onClick={(item) => {
                 setSelectBusiness(item.target.innerText);
                 setBusinessState(!businessState);
-                SetSelectedBusiness( !selectedBusiness );
+                SetSelectedBusiness(!selectedBusiness);
               }}
             >
               {item}
@@ -169,7 +168,7 @@ const SignUp = () => {
               className="select-option"
               onClick={() => {
                 InterestGet(item);
-                SetSelectedInterest( !selectedInterest );
+                SetSelectedInterest(!selectedInterest);
               }}
             >
               {item}
@@ -211,7 +210,7 @@ const SignUp = () => {
 
   const isEmail = (asValue) => {
     var regExp =
-      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{3,})$/i;
     return regExp.test(asValue);
   };
 
@@ -228,20 +227,15 @@ const SignUp = () => {
     }
   };
 
-  // 지용 중복하기 추가
-  const EmailConfirm = async () => {
-
-  }
-
   const checkPwState = (e) => {
     let pw = e.target.value;
     if (pw === "" || pw.length >= 6) {
       set_pw_msg("");
       set_check_pw(pw);
-      setIsPassword( true );
+      setIsPassword(true);
     } else if (pw.length < 6) {
       set_pw_msg("6자 이상이어야 합니다.");
-      setIsPassword( false );
+      setIsPassword(false);
     }
   };
 
@@ -250,39 +244,47 @@ const SignUp = () => {
     let get_pw = check_pw;
     if (get_pw !== confirm_pw) {
       set_confirm_pw_msg("비밀번호를 확인해 주세요.");
-      setIsPasswordConfirm( false );
-    } else if (get_pw === confirm_pw ) {
+      setIsPasswordConfirm(false);
+    } else if (get_pw === confirm_pw) {
       set_confirm_pw_msg("");
-      setIsPasswordConfirm( true );
-    }else {
-      setIsPasswordConfirm( false );
+      setIsPasswordConfirm(true);
+    } else {
+      setIsPasswordConfirm(false);
     }
   };
 
   // 지용 회원가입 작업
 
   const SignUpClickEnvent = async () => {
-    console.log("Job ", selectedJob, " Business ", selectedBusiness, " Interest ", selectedInterest );
-    console.log( isPasswordConfirm, isPasswordConfirm );
-    
+    const Email = email_ref.current.value;
+    const Password = password_ref.current.value;
+    const AgainPassword = confirmPassword_ref.current.value;
+    const Business = selectBusiness;
+    const Job = selectJob;
+
     const SignUpUser = {
-      username: email_ref.current.value, // email
-      password: password_ref.current.value,
-      passwordCheck: confirmPassword_ref.current.value,
-      businessPart: selectBusiness,
-      job: selectJob,
+      username: Email, //email_ref.current.value, // email
+      password: Password, //password_ref.current.value,
+      passwordCheck: AgainPassword, //confirmPassword_ref.current.value,
+      businessPart: Business, //selectBusiness,
+      job: Job,
     };
 
-    // console.log( SignUpUser );
-
-    // await axios.post(`${SERVER_URL}/api/signup`, SignUpUser )
-    // .then( res => { 
-    //   console.log( res.data ); 
-    //   if( res.data.ok ){
-    //     navigate("/login");
-    //   }
-    // })
-    // .catch( e => console.log( e ) );
+    if (SignUpUser) {
+      await axios
+        .post(`${SERVER_URL}/api/signup`, SignUpUser)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.ok) {
+            navigate("/login");
+          }
+        })
+        .catch((e) => {
+          if (e.response.status === 400) {
+            set_email_msg(e.response.data.errorMessage);
+          }
+        });
+    }
   };
 
   return (
@@ -301,7 +303,7 @@ const SignUp = () => {
           ></path>
         </svg>
       </KmongTitle> */}
-      <SignUpWrap >
+      <SignUpWrap>
         <h1>딱 이것만 체크하면 가입 완료!</h1>
 
         {/***** 이메일 *****/}
@@ -360,7 +362,7 @@ const SignUp = () => {
 
             <div className="select-box">
               <div className="selected" onClick={jobopenClose}>
-              {/* <div className="selected" > */}
+                {/* <div className="selected" > */}
                 {selectJob}
                 <svg
                   width="24"
@@ -581,8 +583,20 @@ const SignUp = () => {
         </div>
 
         {/***** 완료 버튼 *****/}
-        { ( agreeAllState && isPassword && isPasswordConfirm && selectedJob && selectedBusiness && selectedInterest ) ? ( <button className="signup_button" onClick={SignUpClickEnvent}>버튼만 누르면 가입완료!</button> ) 
-        : (<button className="signup_disabled_button" disabled={true} >버튼만 누르면 가입완료!</button>) }
+        {agreeAllState &&
+        isPassword &&
+        isPasswordConfirm &&
+        selectedJob &&
+        selectedBusiness &&
+        selectedInterest ? (
+          <button className="signup_button" onClick={SignUpClickEnvent}>
+            버튼만 누르면 가입완료!
+          </button>
+        ) : (
+          <button className="signup_disabled_button" disabled={true}>
+            버튼만 누르면 가입완료!
+          </button>
+        )}
       </SignUpWrap>
 
       <KmongInfo>
@@ -830,38 +844,35 @@ let SignUpWrap = styled.div`
     color: rgb(48, 52, 65);
   }
   // 지용 Signup button 수정
-.signup_disabled_button {
-  
-  outline: none;
-  border-width: 1px;
-  border-style: solid;
-  box-sizing: border-box;
-  border-radius: 4px;
-  line-height: 1;
-  font-weight: 500;
-  transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
-  text-decoration: none;
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  cursor: not-allowed;
-  position: relative;
-  user-select: none;
-  white-space: nowrap;
-  width: 100%;
-  max-width: 100%;
-  height: 52px;
-  font-size: 16px;
-  padding: 0px 24px;
-  min-width: 80px;
-  background-color: rgb(228, 229, 237);
-  border-color: rgb(228, 229, 237);
-  color: rgb(154, 155, 167);
-}
+  .signup_disabled_button {
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    box-sizing: border-box;
+    border-radius: 4px;
+    line-height: 1;
+    font-weight: 500;
+    transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+    text-decoration: none;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: not-allowed;
+    position: relative;
+    user-select: none;
+    white-space: nowrap;
+    width: 100%;
+    max-width: 100%;
+    height: 52px;
+    font-size: 16px;
+    padding: 0px 24px;
+    min-width: 80px;
+    background-color: rgb(228, 229, 237);
+    border-color: rgb(228, 229, 237);
+    color: rgb(154, 155, 167);
+  }
 `;
-
-
 
 export default SignUp;

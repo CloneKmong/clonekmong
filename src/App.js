@@ -12,7 +12,6 @@ import Detail from "./components/Detail";
 
 import MyKmong from "./components/MyKmong";
 import ProjectLists from "./components/ProjectLists";
-import ProjectLists2 from "./components/ProjectLists2";
 import CreateProjectModal from "./components/CreateProjectModal";
 
 /*
@@ -33,7 +32,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyKmong />} />
         <Route path="/list" element={<ProjectLists />} />
-        <Route path="/list2" element={<ProjectLists2 />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/create" element={<CreateProjectModal />} />
