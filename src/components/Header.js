@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
+  const navigate = useNavigate();
+
   return (
     <HeaderContainer>
       <HeaderFirstWrap>
-        <HeaderFirstLeftWrap>
+        <HeaderFirstLeftWrap onClick={() => navigate(`/`)}>
           <svg
             cursor="pointer"
             width="85"
@@ -20,7 +23,13 @@ const Header = () => {
             ></path>
           </svg>
           <HeaderFirstLeftVline />
-          <HeaderFirstLeftText>엔터프라이즈</HeaderFirstLeftText>
+          <HeaderFirstLeftText
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            엔터프라이즈
+          </HeaderFirstLeftText>
         </HeaderFirstLeftWrap>
         <HeaderFirstRightWrap>
           {/* 로그인 시 */}
@@ -29,19 +38,28 @@ const Header = () => {
           <HeaderIcon src="https://kmong.com/img/tools/main_user_gray.png"/> */}
 
           {/* 로그 아웃시 */}
-          <HeaderLogin>로그인</HeaderLogin>
-          <HeaderSignUp>무료 회원가입</HeaderSignUp>
+          <HeaderLogin onClick={() => navigate(`/login`)}>로그인</HeaderLogin>
+          <HeaderSignUp onClick={() => navigate(`/signup`)}>
+            무료 회원가입
+          </HeaderSignUp>
         </HeaderFirstRightWrap>
       </HeaderFirstWrap>
       <HeaderSecondWrap>
         <HeaderSecondLeftWrap>
           <HeaderHomeWrap>
-            <HeaderHome>홈</HeaderHome>
-            <HeaderHomeUnderLine />
+            <HeaderHome underBar={props.underBar} onClick={() => navigate(`/`)}>
+              홈
+            </HeaderHome>
+            <HeaderHomeUnderLine underBar={props.underBar} />
           </HeaderHomeWrap>
           <HeaderListsWrap>
-            <HeaderLists>프로젝트 리스트</HeaderLists>
-            <HeaderListsUnderLine />
+            <HeaderLists
+              underBar={props.underBar}
+              onClick={() => navigate(`/list`)}
+            >
+              프로젝트 리스트
+            </HeaderLists>
+            <HeaderListsUnderLine underBar={props.underBar} />
           </HeaderListsWrap>
         </HeaderSecondLeftWrap>
         {/* <HeaderHiddenMessage>지금 가입하면 <span style={{ fontWeight:"bold" }}>10만원</span> 혜택</HeaderHiddenMessage> */}
@@ -115,8 +133,8 @@ const HeaderLogin = styled.div`
   font-weight: 500;
   cursor: pointer;
 
-  &:hover{
-    background-color: rgba(48, 52, 65, 0.1)
+  &:hover {
+    background-color: rgba(48, 52, 65, 0.1);
   }
 `;
 
@@ -152,7 +170,7 @@ const HeaderSecondLeftWrap = styled.div`
 `;
 
 const HeaderHome = styled.div`
-  font-weight: 700;
+  font-weight: ${(props) => (props.underBar ? "700" : "500")};
   padding: 8px 0;
   cursor: pointer;
 `;
@@ -162,6 +180,7 @@ const HeaderHomeUnderLine = styled.div`
   width: 30px;
   height: 3px;
   cursor: pointer;
+  visibility: ${(props) => (props.underBar ? "visible" : "hidden")};
 `;
 
 const HeaderHomeWrap = styled.div`
@@ -169,11 +188,19 @@ const HeaderHomeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &:hover ${HeaderHome} {
+    font-weight: 700;
+  }
+
+  &:hover ${HeaderHomeUnderLine} {
+    visibility: visible;
+  }
 `;
 
 const HeaderLists = styled.div`
   padding: 8px 0;
-  font-weight: 500;
+  font-weight: ${(props) => (props.underBar ? "500" : "700")};
   cursor: pointer;
   &:hover {
     /* font-weight: 700; */
@@ -184,7 +211,7 @@ const HeaderListsUnderLine = styled.div`
   background-color: rgb(255, 212, 0);
   width: 117px;
   height: 3px;
-  visibility: hidden;
+  visibility: ${(props) => (props.underBar ? "hidden" : "visible")};
 
   cursor: pointer;
 `;
@@ -196,11 +223,11 @@ const HeaderListsWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  &:hover ${HeaderLists}{
-      font-weight: 700;
+  &:hover ${HeaderLists} {
+    font-weight: 700;
   }
 
-  &:hover ${HeaderListsUnderLine}{
+  &:hover ${HeaderListsUnderLine} {
     visibility: visible;
   }
 `;

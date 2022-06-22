@@ -21,16 +21,30 @@ export const addProjectList = createAsyncThunk(
   }
 );
 
+// 디테일 페이지 파일 가져오기
+export const getProjectDetailFiles = createAsyncThunk(
+  "GET/getProjectDetailFiles",
+  async (projectId) => {
+    return await axios
+      .get(`${SERVER_URL}/projects/${projectId}`)
+      .then((response) => response.data);
+  }
+);
+
 const PostSlice = createSlice({
   name: "PostSlice",
   initialState: {
-    list: [{}],
+    list: {},
+    files: [],
   },
   reducers: {},
   extraReducers: {
     [addProjectList.fulfilled]: (state, action) => {
       console.log(action.payload);
-      state.list = [...action.payload];
+      state.list = action.payload;
+    },
+    [getProjectDetailFiles.fulfilled]: (state, action) => {
+      state.files = [action.payload.files[0]];
     },
   },
 });

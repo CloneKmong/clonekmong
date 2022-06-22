@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,8 +13,13 @@ import Detail from "./components/Detail";
 import MyKmong from "./components/MyKmong";
 import ProjectLists from "./components/ProjectLists";
 import CreateProject from "./components/CreateProject";
+<<<<<<< HEAD
 
 import EditProject from "./components/EditProject";
+=======
+import EditProject from "./components/EditProject";
+
+>>>>>>> 6b8663721a46f564873703fe556a2dffe13708ac
 
 /*
 import package
@@ -26,9 +31,27 @@ axios
  */
 
 function App() {
+
+  const location = useLocation();
+
+  
+
+  const [underBar, setUnderBar] = React.useState(true);
+
+  React.useEffect (() => {
+    if (location.pathname === '/') {
+      setUnderBar(true);
+    } else if (location.pathname === '/list') {
+      setUnderBar(false);
+    } else {
+      setUnderBar(false);
+    }
+   },[location]);
+
+
   return (
     <div className="App">
-      <Header />
+      <Header underBar={underBar}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

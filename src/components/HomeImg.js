@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useNavigate } from 'react-router-dom';
+
 const HomeImg = () => {
+
+  const navigate = useNavigate();
+  
     return (<MainContentWrap>
         <MainContentImage>
           <MainContentInfoWrap>
@@ -9,7 +14,7 @@ const HomeImg = () => {
             <MainContentTitle2>
               <b>크몽 엔터프라이즈</b>에 맡기세요!
             </MainContentTitle2>
-            <MainContentBtn1>프로젝트 의뢰하기</MainContentBtn1>
+            <MainContentBtn1 onClick={()=> navigate(`/create`)}>프로젝트 의뢰하기</MainContentBtn1>
             <MainContentBtn2>
               <span style={{ marginRight: "10px" }}>
                 서비스 소개서 다운로드

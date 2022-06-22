@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../App.css";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addProjectList } from "../redux/modules/PostSlice";
 const CreateProject = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // input 박스 리셋 버튼
   const [text, setText] = useState("");
   const [btn, setBtn] = useState(false);
@@ -123,7 +125,7 @@ const CreateProject = () => {
     );
     formData.append("files", file);
     dispatch(addProjectList(formData));
-    console.log(formData);
+    navigate("/mypage");
   }
 
   const onChange = (e) => {
