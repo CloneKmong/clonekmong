@@ -86,7 +86,7 @@ const CreateProject = () => {
 
   function submit() {
     // 프로젝트 작성 리스트
-    const newList = {
+    const projectDto = {
       progressMethod: "외주",
       projectScope: "500만원 미만",
       bigCategory: "IT·프로그래밍",
@@ -110,9 +110,17 @@ const CreateProject = () => {
         .replaceAll("-", "."),
       workingPeriod: parseInt(workingPeriod.current.value),
     };
-    console.log(newList);
+    console.log(projectDto);
     const formData = new FormData();
-    formData.append("projectDto", newList);
+    formData.append(
+      "projectDto",
+      new Blob(
+        [JSON.stringify(projectDto, { contentType: "application/json" })],
+        {
+          type: "application/json",
+        }
+      )
+    );
     formData.append("files", file);
     dispatch(addProjectList(formData));
     console.log(formData);
