@@ -12,9 +12,37 @@ export const getProjectDetail = createAsyncThunk ("get/getProjectDetail", async 
   .then( response => response.data )
 });
 
+export const getProejectListPage = createAsyncThunk ("get/getProejectListPage", async () => {
+  return await axios.get( `${SERVER_URL}/projects`, {
+    params:{
+      page: Number(1),
+      size: Number(5),
+      sortBy : "createdAt"
+    },
+  })
+  .then( response => response.data );
+});
+
+export const getProejectListClickPage = createAsyncThunk ("get/getProejectListClickPage", async ( pageNumber ) => {
+  return await axios.get( `${SERVER_URL}/projects`, {
+    params:{
+      page: Number(pageNumber),
+      size: Number(5),
+      sortBy : "createdAt"
+    },
+  })
+  .then( response => response.data )
+  .catch( e => console.log( e ) );
+});
+
+
+
+
 const GaYeonSlice = createSlice({
     name : "GaYeonSlice",
     initialState:{
+      object:{},
+      firstPage:[],
     },
     reducers:{
 
@@ -22,6 +50,12 @@ const GaYeonSlice = createSlice({
     extraReducers:{
         [ getProjectDetail.fulfilled ] : ( state, action ) => {
             state.object = action.payload ;
+        },
+        [ getProejectListPage.fulfilled ] : ( state, action ) => {
+          state.firstPage = [...action.payload] ;
+        },
+        [ getProejectListClickPage.fulfilled ] : ( state, action ) => {
+          state.firstPage = [...action.payload] ;
         }
     }
 });
