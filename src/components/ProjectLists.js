@@ -23,7 +23,7 @@ const ProjectLists = () => {
     dispatch(getProejectListPage());
    },[]);
 
-   React.useEffect (() => {
+  React.useEffect (() => {
     allLengthList();
    },[PageNumber]);
 
@@ -263,7 +263,7 @@ const ProjectLists = () => {
   return (
     <>
       <Container>
-        <ListBanner src="https://d2v80xjmx68n4w.cloudfront.net/assets/project-request/project-list-banner.png" />
+        <ListBanner src="https://d2v80xjmx68n4w.cloudfront.net/assets/project-request/project-list-banner.png" onClick={() => navigate('/create')}/>
         <ListTitle>프로젝트 리스트</ListTitle>
         <ListContainer>
           <Menu>
