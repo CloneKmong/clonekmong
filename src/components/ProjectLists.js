@@ -4,15 +4,115 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-const ProjectLists = () => {
-  // checkbox
-  // const [check, setCheck] = useState(false);
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { getProejectListPage, getProejectListClickPage } from "../redux/modules/GaYeonSlice"
 
-  // if (check === true) {
-  //   console.log("check!");
-  //   document.getElementsByName("checkthis1").checked;
-  // }
-  // toggle menu
+
+const ProjectLists = () => {
+  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const FirstPage = useSelector( state => state.GaYeon.firstPage);
+ 
+
+  React.useEffect (() => {
+    allLengthList();
+    dispatch(getProejectListPage());
+   },[]);
+
+  const [allLength, setAllLength] = React.useState(26);
+  const [pageList, setPageList] = React.useState([]);
+
+ const allLengthList = () => {
+  let PageList = [];
+    for (let i = 1; i <=  Math.ceil(allLength/5); i++) {
+      PageList.push(i);
+    }
+    setPageList(PageList);
+  }
+
+  const selectPage = (pageNumber) => {
+    dispatch(getProejectListClickPage(pageNumber));
+    window.scrollTo(0, 0);
+  }
+
+
+
+  const PageListMap = () => {
+    return (
+      <>
+        <ul>
+          <li className="page-item">
+            &lt;
+          </li>
+          {pageList.map((item) => (
+
+            <li className="page-item" onClick={() =>selectPage(item)}>
+              {item}
+            </li>
+          ))}
+          <li className="page-item">
+            &gt;
+          </li>
+        </ul>
+      </>
+    )
+
+  };
+
+  const GetPageList = () => {
+    return (
+    <>
+    {FirstPage.map((project) => (
+      <Card>
+      <ImgBox>
+        <div />
+      </ImgBox>
+      <TextBox>
+        <TitleWrapper>
+          <CardTitle>
+            <Dday>D{project.leftDaysForEnd}</Dday>
+            <Title>{project.title}</Title>
+          </CardTitle>
+          <SubTitle>
+            <span>{project.bigCategory}</span> /<span> {project.smallCategory}</span>
+          </SubTitle>
+          {/* <IconBox>
+            <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/ic-location-on@2x.png" />
+          </IconBox> */}
+        </TitleWrapper>
+
+        <Comment>
+        {project.description}
+        </Comment>
+        <InfoWrapper>
+          <InfoBox>
+            <InfoTitle>예산</InfoTitle>
+            <Info>{(`${project.budget}`).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</Info>
+          </InfoBox>
+          <Divider />
+          <InfoBox>
+            <InfoTitle>작업 기간</InfoTitle>
+            <Info>{project.workingPeriod} 일</Info>
+          </InfoBox>
+          <Divider />
+          <InfoBox>
+            <InfoTitle>받은 제안</InfoTitle>
+            <Info>1개</Info>
+          </InfoBox>
+        </InfoWrapper>
+      </TextBox>
+    </Card>
+      
+    ))}
+
+    </>
+
+      
+    )
+  }
+
+
   const [menu, setMenu] = useState([
     false,
     false,
@@ -244,85 +344,11 @@ const ProjectLists = () => {
                 </BtnBox>
               </SortBar>
             </BarWrapper>
-            {Array.from({ length: 10 }, (item, idx) => {
-              return (
-                <Card kkey={idx}>
-                  <ImgBox>
-                    <div />
-                  </ImgBox>
-                  <TextBox>
-                    <TitleWrapper>
-                      <CardTitle>
-                        <Dday>D-12</Dday>
-                        <Title>LED제어 IOT컨트롤러</Title>
-                      </CardTitle>
-                      <SubTitle>
-                        <span>IT·프로그래밍</span> /<span>임베디드 시스템</span>
-                      </SubTitle>
-                      {/* <IconBox>
-                        <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/ic-location-on@2x.png" />
-                      </IconBox> */}
-                    </TitleWrapper>
-
-                    <Comment>
-                      ※프로젝트의 현재 상황 - 프로젝트 소개 : 기존 현수막과
-                      도로교통시설물 대신 자사 제품인 LED 미디어 글라스를
-                      이용하여 민간 및 지자체에 메시지와 다양한 정보를 제공 할
-                      수 있는 LED 전자 배너 개발하여 양산하는 프로젝트입니다.
-                      유무선 통신 (LTE, Wi-Fi, Ethernet)을 이용하여 설치 장소의
-                      날씨, 미세먼지, 시간, 교통 등 다양한 정보를 PC 또는
-                      스마트폰으로 제어 하여 전자 배너에 출력 할 수 있는
-                      컨트롤러를 개발하는 것이 목표입니다.
-                    </Comment>
-                    <InfoWrapper>
-                      <InfoBox>
-                        <InfoTitle>예산</InfoTitle>
-                        <Info>50,000,000원</Info>
-                      </InfoBox>
-                      <Divider />
-                      <InfoBox>
-                        <InfoTitle>작업 기간</InfoTitle>
-                        <Info>90일</Info>
-                      </InfoBox>
-                      <Divider />
-                      <InfoBox>
-                        <InfoTitle>받은 제안</InfoTitle>
-                        <Info>1개</Info>
-                      </InfoBox>
-                    </InfoWrapper>
-                  </TextBox>
-                </Card>
-              );
-            })}
+          <GetPageList />
 
             <Pagination>
-              <ul>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    &lt;
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="/list/1">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="/list/2">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="/list/3">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    &gt;
-                  </a>
-                </li>
-              </ul>
+              <PageListMap />
+            
             </Pagination>
           </CardContainer>
         </ListContainer>
@@ -583,7 +609,7 @@ const Dday = styled.div`
   background-color: #9bb3ca;
   border-radius: 4px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -671,6 +697,7 @@ const Pagination = styled.div`
     text-decoration: none;
     float: left;
     margin-left: 20px;
+    cursor: pointer;
   }
   a {
     color: #9a9ba7;
