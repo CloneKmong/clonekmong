@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
       <HeaderFirstWrap>
@@ -20,7 +21,13 @@ const Header = () => {
             ></path>
           </svg>
           <HeaderFirstLeftVline />
-          <HeaderFirstLeftText>엔터프라이즈</HeaderFirstLeftText>
+          <HeaderFirstLeftText
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            엔터프라이즈
+          </HeaderFirstLeftText>
         </HeaderFirstLeftWrap>
         <HeaderFirstRightWrap>
           {/* 로그인 시 */}
@@ -29,18 +36,42 @@ const Header = () => {
           <HeaderIcon src="https://kmong.com/img/tools/main_user_gray.png"/> */}
 
           {/* 로그 아웃시 */}
-          <HeaderLogin>로그인</HeaderLogin>
-          <HeaderSignUp>무료 회원가입</HeaderSignUp>
+          <HeaderLogin
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            로그인
+          </HeaderLogin>
+          <HeaderSignUp
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            무료 회원가입
+          </HeaderSignUp>
         </HeaderFirstRightWrap>
       </HeaderFirstWrap>
       <HeaderSecondWrap>
         <HeaderSecondLeftWrap>
           <HeaderHomeWrap>
-            <HeaderHome>홈</HeaderHome>
+            <HeaderHome
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              홈
+            </HeaderHome>
             <HeaderHomeUnderLine />
           </HeaderHomeWrap>
           <HeaderListsWrap>
-            <HeaderLists>프로젝트 리스트</HeaderLists>
+            <HeaderLists
+              onClick={() => {
+                navigate("/list");
+              }}
+            >
+              프로젝트 리스트
+            </HeaderLists>
             <HeaderListsUnderLine />
           </HeaderListsWrap>
         </HeaderSecondLeftWrap>
@@ -115,8 +146,8 @@ const HeaderLogin = styled.div`
   font-weight: 500;
   cursor: pointer;
 
-  &:hover{
-    background-color: rgba(48, 52, 65, 0.1)
+  &:hover {
+    background-color: rgba(48, 52, 65, 0.1);
   }
 `;
 
@@ -196,11 +227,11 @@ const HeaderListsWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  &:hover ${HeaderLists}{
-      font-weight: 700;
+  &:hover ${HeaderLists} {
+    font-weight: 700;
   }
 
-  &:hover ${HeaderListsUnderLine}{
+  &:hover ${HeaderListsUnderLine} {
     visibility: visible;
   }
 `;
