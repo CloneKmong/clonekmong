@@ -60,6 +60,12 @@ const ProjectLists = () => {
 
   };
 
+  const GoDtail = (item) => {
+    const id = item.project_id
+    navigate(`/detail/${id}`);
+    window.scrollTo(0, 0);
+  }
+
   const GetPageList = () => {
     return (
     <>
@@ -72,7 +78,7 @@ const ProjectLists = () => {
         <TitleWrapper>
           <CardTitle>
             <Dday>D{project.leftDaysForEnd}</Dday>
-            <Title>{project.title}</Title>
+            <Title onClick={()=>GoDtail(project)}>{project.title}</Title>
           </CardTitle>
           <SubTitle>
             <span>{project.bigCategory}</span> /<span> {project.smallCategory}</span>
@@ -616,6 +622,7 @@ const Dday = styled.div`
 const Title = styled.div`
   margin-left: 8px;
   font-weight: 700;
+  cursor: pointer;
 `;
 // const IconBox = styled.div`
 //   img {
