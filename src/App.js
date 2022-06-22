@@ -14,6 +14,8 @@ import MyKmong from "./components/MyKmong";
 import ProjectLists from "./components/ProjectLists";
 import CreateProject from "./components/CreateProject";
 
+import EditProject from "./components/EditProject";
+
 /*
 import package
 
@@ -35,6 +37,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/create" element={<CreateProject />} />
+        <Route path="/edit/:project_id" element={<EditProject/>} />
       </Routes>
       <Footer />
     </div>
