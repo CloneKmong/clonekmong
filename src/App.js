@@ -13,11 +13,9 @@ import Detail from "./components/Detail";
 import MyKmong from "./components/MyKmong";
 import ProjectLists from "./components/ProjectLists";
 import CreateProject from "./components/CreateProject";
-
-<<<<<<< HEAD
 import EditProject from "./components/EditProject";
-=======
->>>>>>> 1e61d99e298d6bf73580177b62bfe5291b15d8e9
+
+
 
 /*
 import package
