@@ -6,24 +6,34 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { getProejectListPage, getProejectListClickPage } from "../redux/modules/GaYeonSlice"
+import { getProejectListPage, getProejectListClickPage } from "../redux/modules/KmongSlice";
+
+
 
 
 const ProjectLists = () => {
   const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const FirstPage = useSelector( state => state.GaYeon.firstPage);
+  const dispatch = useDispatch();
+  const FirstPage = useSelector( state => state.Kmong.firstPage);
+  const PageNumber = useSelector( state => state.Kmong.length);
+  console.log("PageNumber ===> ", PageNumber)
  
 
   React.useEffect (() => {
-    allLengthList();
     dispatch(getProejectListPage());
    },[]);
 
-  const [allLength, setAllLength] = React.useState(26);
+   React.useEffect (() => {
+    allLengthList();
+   },[PageNumber]);
+
+  
   const [pageList, setPageList] = React.useState([]);
 
  const allLengthList = () => {
+  let allLength = 6;
+   allLength = PageNumber;
+
   let PageList = [];
     for (let i = 1; i <=  Math.ceil(allLength/5); i++) {
       PageList.push(i);
