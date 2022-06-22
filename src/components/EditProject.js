@@ -1,54 +1,109 @@
 import React, { useState } from "react";
 import "../App.css";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { editMyProjectList } from "../redux/modules/MyPageSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { getEditProjectList, modifyEditProjectList } from "../redux/modules/EditSlice";
+
+const CurrentStatus = ["아이디어만 있음", "기획서 보유", "디자인 보유", "개발환경 보유"];
+const RequiredFunction = ["갤러리", "게시판", "일정 관리", "SNS 연동"];
+const userRelated = ["회원가입 및 정보관리", "SNS 간편 로그인", "즐겨찾기", "메세지"];
+const Commerce = ["장바구니", "배송 관리", "PG사 연동", "해외결제"];
+const Sites = ["다국어 지원", "관리자 페이지", "보안", "GA 설치"];
+const Solutions = ["솔루션 이용", "솔루션 이용하지 않고 자체 개발", "상관 없음(모름)"];
+const Reactable = ["반응형", "비반응형"];
 
 const EditProject = () => {
   const { project_id } = useParams();
+  const editList = useSelector( state => state.Edit.list );
+    console.log( editList );
+    const editSettings = useSelector( state => state.Edit.editSetting );
+    // console.log( editSettings );
   const dispatch = useDispatch();
-  console.log(project_id);
-
+  const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
+ 
   // input 박스 리셋 버튼
-  const [text, setText] = useState("");
+  const [text, setText] = useState(editList[0].title);
+  // 지용
+  //회원가입 및 정보관리: true, 갤러리: true, 다국어 지원: true, 장바구니: true
+  const [ setRequired, SetDefaultRequired ] = useState( editList[0].requiredFunction );
+  const [ setUserRelated, SetDefaultUserRelated ] = useState( editList[0].userRelatedFunction );
+  const [ setCommerce, setDefaultCommerce ] = useState( editList[0].commerceRelatedFunction );
+  const [ setSites, setDefaultSites ] = useState( editList[0].siteEnvironment );
+  
+  const [ setTax, setDefautTax ] = useState( editList[0].taxInvoice );
+  const [ setSolution, setDefaultSolution ] = useState( editList[0].solutionInUse );
+  const [ setReactableValue, setDefaultReactable ] = useState( editList[0].reactable );
+  const [ setCurrnetStatus, SetDefaultStatus ] = useState( editList[0].currentStatus );
+  // setText( editList[0].title );
+  React.useEffect(()=>{
+    dispatch( getEditProjectList( { project_id, token } ) );
+    // setText(editList[0].title);
+    // setDefaultReactable( editSettings.reaction );
+    // setDefaultSolution( editSettings.solution );
+    // setDefaultSites( editSettings.site );
+    // SetDefaultUserRelated( editSettings.user );
+    // setDefaultCommerce( editSettings.commerce );
+    // SetDefaultRequired( editSettings.default );
+    // SetDefaultStatus( editSettings.project );
+  },[]);
+
+  const replaceDefaultDate = ( date ) => {
+    if( date ){
+        return date.replaceAll(".", "-");
+    }
+  }
+ 
+  // 지용 끝
+  // input 박스 리셋 버튼
+ // const [text, setText] = useState("");
   const [btn, setBtn] = useState(false);
 
   // 프로젝트 준비 상황 선택
   const [currentStatus, setCurrentStatus] = useState("");
   const handleCurrentStatus = (e) => {
+    SetDefaultStatus(e.target.value)
     setCurrentStatus(e.target.value);
   };
 
   // 기본 기능
   const [requiredFunction, setRequiredFunction] = useState("");
   const handleRequiredFunction = (e) => {
+    SetDefaultRequired( e.target.value );
     setRequiredFunction(e.target.value);
   };
   // 회원 관련 기능
   const [userRelatedFunction, setUserRelatedFunction] = useState("");
   const handleUserRelatedFunction = (e) => {
+    SetDefaultUserRelated(e.target.value);
     setUserRelatedFunction(e.target.value);
   };
   // 커머스 관련 기능
   const [commerceRelatedFunction, setCommerceRelatedFunction] = useState("");
   const handleCommerceRelatedFunction = (e) => {
+    setDefaultCommerce( e.target.value );
     setCommerceRelatedFunction(e.target.value);
   };
   // 사이트 환경
   const [siteEnvironment, setSiteEnvironment] = useState("");
   const handleSiteEnvironment = (e) => {
-    setSiteEnvironment(e.target.value);
+    setDefaultSites( e.target.value );
+    if( e.target.checked ){
+        setSiteEnvironment(e.target.value);
+    }
   };
 
   // 솔루션 이용 여부
   const [solutionInUse, setSolutionInUse] = useState("");
   const handleSolutionInUse = (e) => {
+    setDefaultSolution(e.target.value);
     setSolutionInUse(e.target.value);
   };
   // 반응형 적용 여부
   const [reactable, setReactable] = useState("");
   const handleReactable = (e) => {
+    setDefaultReactable(e.target.value);
     setReactable(e.target.value);
   };
   // 의뢰 사항
@@ -59,11 +114,12 @@ const EditProject = () => {
   const handleUpload = (e) => {
     e.preventDefault();
     setFile(e.target.files[0]);
-    console.log(file);
+    // console.log(file);
   };
   
   // 프로젝트의 예산
   const budget = React.useRef();
+  let won = 0;
   // 예산 입력 버튼 함수
   function submitBudget() {
     if (budget.current.value < 9999) {
@@ -98,21 +154,22 @@ const EditProject = () => {
   };
 
   function submit() {
-    const newList = {
+    // 프로젝트 작성 리스트
+    const projectDto = {
       progressMethod: "외주",
       projectScope: "500만원 미만",
       bigCategory: "IT·프로그래밍",
       smallCategory: "웹사이트 신규 제작",
       title: text,
-      currentStatus: currentStatus,
-      requiredFunction: requiredFunction,
-      userRelatedFunction: userRelatedFunction,
-      commerceRelatedFunction: commerceRelatedFunction,
-      siteEnvironment: siteEnvironment,
-      solutionInUse: solutionInUse,
-      reactable: reactable,
+      currentStatus: currentStatus ? currentStatus : editList[0].currentStatus,
+      requiredFunction: requiredFunction ? requiredFunction : setRequired,
+      userRelatedFunction: userRelatedFunction ? userRelatedFunction : setUserRelated,
+      commerceRelatedFunction: commerceRelatedFunction ? commerceRelatedFunction : setCommerce,
+      siteEnvironment: siteEnvironment ? siteEnvironment : setSites,
+      solutionInUse: solutionInUse ? solutionInUse : setSolution,
+      reactable: reactable ? reactable : setReactableValue,
       description: description.current.value,
-      budget: Math.floor(parseInt(budget.current.value) / 1000) * 1000,
+      budget: budget.current.value ? budget.current.value : editList[0].budget,
       taxInvoice: checkTax,
       volunteerValidDate: volunteerDate.current.value
         .toString()
@@ -122,39 +179,20 @@ const EditProject = () => {
         .replaceAll("-", "."),
       workingPeriod: parseInt(workingPeriod.current.value),
     };
-    // dispatch(addProjectList(newList));
-    console.log(newList);
+    // console.log(projectDto);
     // const formData = new FormData();
-    // formData.append("progressMethod", "외주");
-    // formData.append("projectScope", "500만원 미만");
-    // formData.append("bigCategory", "IT·프로그래밍");
-    // formData.append("smallCategory", "웹사이트 신규 제작");
-    // formData.append("title", text);
-    // formData.append("currentStatus", currentStatus);
-    // formData.append("requiredFunction", requiredFunction);
-    // formData.append("userRelatedFunction", userRelatedFunction);
-    // formData.append("commerceRelatedFunction", commerceRelatedFunction);
-    // formData.append("siteEnvironment", siteEnvironment);
-    // formData.append("solutionInUse", solutionInUse);
-    // formData.append("reactable", reactable);
-    // formData.append("description", description.current.value);
-    // // formData.append("files", file);
     // formData.append(
-    //   "budget",
-    //   Math.floor(parseInt(budget.current.value) / 1000) * 1000
+    //   "projectDto",
+    //   new Blob(
+    //     [JSON.stringify(projectDto, { contentType: "application/json" })],
+    //     {
+    //       type: "application/json",
+    //     }
+    //   )
     // );
-    // formData.append("taxInvoice", checkTax);
-    // formData.append(
-    //   "volunteerValidDate",
-    //   volunteerDate.current.value.toString().replaceAll("-", ".")
-    // );
-    // formData.append(
-    //   "dueDateForApplication",
-    //   dueDate.current.value.toString().replaceAll("-", ".")
-    // );
-    // formData.append("workingPeriod", parseInt(workingPeriod.current.value));
-    // dispatch(addProjectList(formData));
-    // console.log(formData);
+    // formData.append("files", file);
+    dispatch(modifyEditProjectList({ id: project_id, token, Data:projectDto }));
+    navigate("/mypage");
   }
 
   const onReset = () => {
@@ -164,7 +202,7 @@ const EditProject = () => {
   return (
     <>
       <Container>
-        <Title>프로젝트 의뢰</Title>
+        <Title>프로젝트 수정</Title>
         <BoxWrapper>
           <Box>
             <FormTitle>프로젝트 진행 방식을 선택해주세요.</FormTitle>
@@ -243,7 +281,8 @@ const EditProject = () => {
                 type="text"
                 placeholder="예) OOO분야의 솔루션 요청드립니다."
                 onChange={onChange}
-                value={text}
+                // value={text} 
+                defaultValue={editList[0].title}
               />
               {btn === true ? (
                 <Erase
@@ -257,42 +296,21 @@ const EditProject = () => {
             <br />
             <FormTitle>프로젝트의 준비 상황을 선택해주세요.</FormTitle>
             <br />
-            <Select>
-              <Input
-                type="radio"
-                name="currentStatus"
-                value="아이디어만 있음"
-                onChange={handleCurrentStatus}
-              />
-              <span>아이디어만 있음</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="currentStatus"
-                value="기획서 보유"
-                onChange={handleCurrentStatus}
-              />
-              <span>기획서 보유</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="currentStatus"
-                value="디자인 보유"
-                onChange={handleCurrentStatus}
-              />
-              <span>디자인 보유</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="currentStatus"
-                value="개발환경 보유"
-                onChange={handleCurrentStatus}
-              />
-              <span>개발환경 보유</span>
-            </Select>
+            {CurrentStatus.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="currentStatus"
+                      value={item}
+                      checked={ setCurrnetStatus === item }
+                      onChange={handleCurrentStatus}
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            } )}
+            
             <br />
             <hr />
             <br />
@@ -302,210 +320,109 @@ const EditProject = () => {
             </FormTitle>
             <br />
             <SubTitle>기본 기능</SubTitle>
-            <Select>
-              <Input
-                type="radio"
-                name="requiredFunction"
-                value="갤러리"
-                onChange={handleRequiredFunction}
-              />
-              <span>갤러리</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="requiredFunction"
-                value="게시판"
-                onChange={handleRequiredFunction}
-              />
-              <span>게시판</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="requiredFunction"
-                value="일정 관리"
-                onChange={handleRequiredFunction}
-              />
-              <span>일정 관리</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="requiredFunction"
-                value="SNS 연동"
-                onChange={handleRequiredFunction}
-              />
-              <span>SNS 연동</span>
-            </Select>
+            {RequiredFunction.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="requiredFunction"
+                      value={item}
+                      checked={ setRequired === item }
+                      onChange={handleRequiredFunction}
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            })}
+            
             <br />
             <SubTitle>회원 관련 기능</SubTitle>
-            <Select>
-              <Input
-                type="radio"
-                name="userRelatedFunction"
-                value="회원가입 및 정보관리"
-                onChange={handleUserRelatedFunction}
-              />
-              <span>회원가입 및 정보관리</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="userRelatedFunction"
-                value="SNS 간편 로그인"
-                onChange={handleUserRelatedFunction}
-              />
-              <span>SNS 간편 로그인</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="userRelatedFunction"
-                value="즐겨찾기"
-                onChange={handleUserRelatedFunction}
-              />
-              <span>즐겨찾기(찜하기/스크랩)</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="userRelatedFunction"
-                value="메시지"
-                onChange={handleUserRelatedFunction}
-              />
-              <span>메시지</span>
-            </Select>
+            { userRelated.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="userRelatedFunction"
+                      value={item}
+                      onChange={handleUserRelatedFunction}
+                      checked={ setUserRelated === item }
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            })}
+            
             <br />
             <SubTitle>커머스 관련 기능</SubTitle>
-            <Select>
-              <Input
-                type="radio"
-                name="commerceRelatedFunction"
-                value="장바구니"
-                onChange={handleCommerceRelatedFunction}
-              />
-              <span>장바구니</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="commerceRelatedFunction"
-                value="배송 관리"
-                onChange={handleCommerceRelatedFunction}
-              />
-              <span>배송 관리</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="commerceRelatedFunction"
-                value="PG사 연동"
-                onChange={handleCommerceRelatedFunction}
-              />
-              <span>PG사 연동</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="commerceRelatedFunction"
-                value="해외결제"
-                onChange={handleCommerceRelatedFunction}
-              />
-              <span>해외결제(페이팔)</span>
-            </Select>
+            { Commerce.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="commerceRelatedFunction"
+                      value={item}
+                      onChange={handleCommerceRelatedFunction}
+                      checked={ setCommerce === item }
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            })}
+            
             <br />
             <SubTitle>사이트 환경</SubTitle>
-            <Select>
-              <Input
-                type="radio"
-                name="siteEnvironment"
-                value="다국어 지원"
-                onChange={handleSiteEnvironment}
-              />
-              <span>다국어 지원</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="siteEnvironment"
-                value="관리자 페이지"
-                onChange={handleSiteEnvironment}
-              />
-              <span>관리자 페이지</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="siteEnvironment"
-                value="보안"
-                onChange={handleSiteEnvironment}
-              />
-              <span>보안(SSL 인증)</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="siteEnvironment"
-                value="GA 설치"
-                onChange={handleSiteEnvironment}
-              />
-              <span>GA 설치</span>
-            </Select>
+            { Sites.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="siteEnvironment"
+                      value={item}
+                      onChange={handleSiteEnvironment}
+                      checked={ setSites === item }
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            })}
           </Box>
           <Box>
             <FormTitle>솔루션 이용 여부를 체크해주세요.</FormTitle>
             <br />
-            <Select>
-              <Input
-                type="radio"
-                name="solutionInUse"
-                value="솔루션 이용"
-                onChange={handleSolutionInUse}
-              />
-              <span>솔루션 이용</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="solutionInUse"
-                value="솔루션 이용하지 않고 자체 개발"
-                onChange={handleSolutionInUse}
-              />
-              <span>솔루션 이용하지 않고 자체 개발</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="solutionInUse"
-                value="상관 없음(모름)"
-                onChange={handleSolutionInUse}
-              />
-              <span>상관 없음(모름)</span>
-            </Select>
+            { Solutions.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="solutionInUse"
+                      value={item}
+                      onChange={handleSolutionInUse}
+                      checked={ setSolution === item }
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            })}
+            
             <br />
             <hr />
             <br />
             <FormTitle>반응형 적용 여부를 체크해주세요.</FormTitle>
             <br />
-            <Select>
-              <Input
-                type="radio"
-                name="reactable"
-                value="반응형"
-                onChange={handleReactable}
-              />
-              <span>반응형</span>
-            </Select>
-            <Select>
-              <Input
-                type="radio"
-                name="reactable"
-                value="비반응형"
-                onChange={handleReactable}
-              />
-              <span>비반응형</span>
-            </Select>
+            { Reactable.map( ( item, index ) => {
+                return (
+                  <Select key={index}>
+                    <Input
+                      type="radio"
+                      name="reactable"
+                      value={item}
+                      onChange={handleReactable}
+                      checked={ setReactableValue === item }
+                    />
+                    <span>{item}</span>
+                  </Select>
+                );
+            })}
             <br />
             <hr />
             <br />
@@ -514,7 +431,7 @@ const EditProject = () => {
               <p>외부 연락처 공개 등 운영정책 위반 시 이용이 제한 됩니다.</p>
             </FormTitle>
             <br />
-            <TextArea ref={description} />
+            <TextArea ref={description} defaultValue={editList[0].description}/>
             <div>
               <input
                 type="file"
@@ -534,6 +451,7 @@ const EditProject = () => {
                   min="0"
                   placeholder="최소 10,000 원"
                   ref={budget}
+                  defaultValue={editList[0].budget}
                 />
               </InputBudget>
               <BtnBudget onClick={submitBudget}>입력</BtnBudget>
@@ -552,17 +470,17 @@ const EditProject = () => {
             <br />
             <FormTitle>지원자 모집 마감 일자를 선택해주세요.</FormTitle>
             <br />
-            <Input type="date" ref={volunteerDate} />
+            <Input type="date" value={replaceDefaultDate( editList[0].volunteerValidDate )} ref={volunteerDate} />
             <br />
             <br />
             <FormTitle>프로젝트의 작업 마감 일자를 선택해주세요.</FormTitle>
             <br />
-            <Input type="date" ref={dueDate} />
+            <Input type="date" value={replaceDefaultDate( editList[0].dueDateForApplication )} ref={dueDate} />
             <br />
             <br />
             <FormTitle>작업 기간을 입력해주세요. (일 단위)</FormTitle>
             <br />
-            <Input type="number" min="1" ref={workingPeriod} />
+            <Input type="number" value={editList[0].workingPeriod} min="1" ref={workingPeriod} />
             <br />
             <hr />
             <br />
