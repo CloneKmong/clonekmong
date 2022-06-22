@@ -84,40 +84,65 @@ const CreateProject = () => {
   const dueDate = React.useRef();
   const workingPeriod = React.useRef();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("progressMethod", "외주");
-    formData.append("projectScope", "500만원 미만");
-    formData.append("bigCategory", "IT·프로그래밍");
-    formData.append("smallCategory", "웹사이트 신규 제작");
-    formData.append("title", text);
-    formData.append("currentStatus", currentStatus);
-    formData.append("requiredFunction", requiredFunction);
-    formData.append("userRelatedFunction", userRelatedFunction);
-    formData.append("commerceRelatedFunction", commerceRelatedFunction);
-    formData.append("siteEnvironment", siteEnvironment);
-    formData.append("solutionInUse", solutionInUse);
-    formData.append("reactable", reactable);
-    formData.append("description", description.current.value);
-    // formData.append("files", file);
-    formData.append(
-      "budget",
-      Math.floor(parseInt(budget.current.value) / 1000) * 1000
-    );
-    formData.append("taxInvoice", checkTax);
-    formData.append(
-      "volunteerValidDate",
-      volunteerDate.current.value.toString().replaceAll("-", ".")
-    );
-    formData.append(
-      "dueDateForApplication",
-      dueDate.current.value.toString().replaceAll("-", ".")
-    );
-    formData.append("workingPeriod", parseInt(workingPeriod.current.value));
-    dispatch(addProjectList(formData));
-    console.log(formData);
-  };
+  function submit() {
+    const newList = {
+      progressMethod: "외주",
+      projectScope: "500만원 미만",
+      bigCategory: "IT·프로그래밍",
+      smallCategory: "웹사이트 신규 제작",
+      title: text,
+      currentStatus: currentStatus,
+      requiredFunction: requiredFunction,
+      userRelatedFunction: userRelatedFunction,
+      commerceRelatedFunction: commerceRelatedFunction,
+      siteEnvironment: siteEnvironment,
+      solutionInUse: solutionInUse,
+      reactable: reactable,
+      description: description.current.value,
+      budget: Math.floor(parseInt(budget.current.value) / 1000) * 1000,
+      taxInvoice: checkTax,
+      volunteerValidDate: volunteerDate.current.value
+        .toString()
+        .replaceAll("-", "."),
+      dueDateForApplication: dueDate.current.value
+        .toString()
+        .replaceAll("-", "."),
+      workingPeriod: parseInt(workingPeriod.current.value),
+    };
+    dispatch(addProjectList(newList));
+    console.log(newList);
+    // const formData = new FormData();
+    // formData.append("progressMethod", "외주");
+    // formData.append("projectScope", "500만원 미만");
+    // formData.append("bigCategory", "IT·프로그래밍");
+    // formData.append("smallCategory", "웹사이트 신규 제작");
+    // formData.append("title", text);
+    // formData.append("currentStatus", currentStatus);
+    // formData.append("requiredFunction", requiredFunction);
+    // formData.append("userRelatedFunction", userRelatedFunction);
+    // formData.append("commerceRelatedFunction", commerceRelatedFunction);
+    // formData.append("siteEnvironment", siteEnvironment);
+    // formData.append("solutionInUse", solutionInUse);
+    // formData.append("reactable", reactable);
+    // formData.append("description", description.current.value);
+    // // formData.append("files", file);
+    // formData.append(
+    //   "budget",
+    //   Math.floor(parseInt(budget.current.value) / 1000) * 1000
+    // );
+    // formData.append("taxInvoice", checkTax);
+    // formData.append(
+    //   "volunteerValidDate",
+    //   volunteerDate.current.value.toString().replaceAll("-", ".")
+    // );
+    // formData.append(
+    //   "dueDateForApplication",
+    //   dueDate.current.value.toString().replaceAll("-", ".")
+    // );
+    // formData.append("workingPeriod", parseInt(workingPeriod.current.value));
+    // dispatch(addProjectList(formData));
+    // console.log(formData);
+  }
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -541,9 +566,7 @@ const CreateProject = () => {
             </SubmitTitle>
             <br />
             <br />
-            <BtnSubmit onSubmit={handleSubmit}>
-              프로젝트 등록 완료하기
-            </BtnSubmit>
+            <BtnSubmit onClick={submit}>프로젝트 등록 완료하기</BtnSubmit>
           </Box>
         </BoxWrapper>
       </Container>
