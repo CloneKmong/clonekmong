@@ -12,7 +12,7 @@ import Detail from "./components/Detail";
 
 import MyKmong from "./components/MyKmong";
 import ProjectLists from "./components/ProjectLists";
-import CreateProjectModal from "./components/CreateProjectModal";
+import CreateProject from "./components/CreateProject";
 
 /*
 import package
@@ -34,7 +34,7 @@ function App() {
         <Route path="/list" element={<ProjectLists />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/create" element={<CreateProjectModal />} />
+        <Route path="/create" element={<CreateProject />} />
       </Routes>
       <Footer />
     </div>
