@@ -4,58 +4,35 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import {
   getProejectListPage,
   getProejectListClickPage,
-} from "../redux/modules/GaYeonSlice";
-=======
-import { useNavigate } from 'react-router-dom';
-import { getProejectListPage, getProejectListClickPage } from "../redux/modules/KmongSlice";
-
-
-
->>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
+} from "../redux/modules/KmongSlice";
 
 const ProjectLists = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-<<<<<<< HEAD
-  const FirstPage = useSelector((state) => state.GaYeon.firstPage);
+  const FirstPage = useSelector((state) => state.Kmong.firstPage);
+  const PageNumber = useSelector((state) => state.Kmong.length);
+  console.log("PageNumber ===> ", PageNumber);
 
   React.useEffect(() => {
-    allLengthList();
-=======
-  const FirstPage = useSelector( state => state.Kmong.firstPage);
-  const PageNumber = useSelector( state => state.Kmong.length);
-  console.log("PageNumber ===> ", PageNumber)
- 
-
-  React.useEffect (() => {
->>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
     dispatch(getProejectListPage());
   }, []);
 
-  React.useEffect (() => {
+  React.useEffect(() => {
     allLengthList();
-   },[PageNumber]);
+  }, [PageNumber]);
 
-  
   const [pageList, setPageList] = React.useState([]);
 
-<<<<<<< HEAD
   const allLengthList = () => {
+    let allLength = 6;
+    allLength = PageNumber;
+
     let PageList = [];
     for (let i = 1; i <= Math.ceil(allLength / 5); i++) {
-=======
- const allLengthList = () => {
-  let allLength = 6;
-   allLength = PageNumber;
-
-  let PageList = [];
-    for (let i = 1; i <=  Math.ceil(allLength/5); i++) {
->>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
       PageList.push(i);
     }
     setPageList(PageList);
@@ -83,14 +60,13 @@ const ProjectLists = () => {
   };
 
   const GoDtail = (item) => {
-    const id = item.project_id
+    const id = item.project_id;
     navigate(`/detail/${id}`);
     window.scrollTo(0, 0);
-  }
+  };
 
   const GetPageList = () => {
     return (
-<<<<<<< HEAD
       <>
         {FirstPage.map((project) => (
           <Card>
@@ -101,31 +77,15 @@ const ProjectLists = () => {
               <TitleWrapper>
                 <CardTitle>
                   <Dday>D{project.leftDaysForEnd}</Dday>
-                  <Title>{project.title}</Title>
+                  <Title onClick={() => GoDtail(project)}>
+                    {project.title}
+                  </Title>
                 </CardTitle>
                 <SubTitle>
                   <span>{project.bigCategory}</span> /
                   <span> {project.smallCategory}</span>
                 </SubTitle>
                 {/* <IconBox>
-=======
-    <>
-    {FirstPage.map((project) => (
-      <Card>
-      <ImgBox>
-        <div />
-      </ImgBox>
-      <TextBox>
-        <TitleWrapper>
-          <CardTitle>
-            <Dday>D{project.leftDaysForEnd}</Dday>
-            <Title onClick={()=>GoDtail(project)}>{project.title}</Title>
-          </CardTitle>
-          <SubTitle>
-            <span>{project.bigCategory}</span> /<span> {project.smallCategory}</span>
-          </SubTitle>
-          {/* <IconBox>
->>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
             <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/ic-location-on@2x.png" />
           </IconBox> */}
               </TitleWrapper>
@@ -293,7 +253,10 @@ const ProjectLists = () => {
   return (
     <>
       <Container>
-        <ListBanner src="https://d2v80xjmx68n4w.cloudfront.net/assets/project-request/project-list-banner.png" onClick={() => navigate('/create')}/>
+        <ListBanner
+          src="https://d2v80xjmx68n4w.cloudfront.net/assets/project-request/project-list-banner.png"
+          onClick={() => navigate("/create")}
+        />
         <ListTitle>프로젝트 리스트</ListTitle>
         <ListContainer>
           <Menu>
