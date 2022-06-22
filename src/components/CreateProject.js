@@ -71,10 +71,8 @@ const CreateProject = () => {
         }원이 입력되었습니다.`
       );
       setMoney(Math.floor(parseInt(budget.current.value) / 1000) * 1000);
-
-      budget.current.value = money
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      const Bmoney = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      budget.current.value = `${Bmoney}원`;
     }
   }
   //(7500000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
@@ -115,7 +113,7 @@ const CreateProject = () => {
         .replaceAll("-", "."),
       workingPeriod: parseInt(workingPeriod.current.value),
     };
-    dispatch(addProjectList(newList));
+    // dispatch(addProjectList(newList));
     console.log(newList);
     // const formData = new FormData();
     // formData.append("progressMethod", "외주");
