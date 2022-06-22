@@ -16,7 +16,6 @@ import CreateProject from "./components/CreateProject";
 import EditProject from "./components/EditProject";
 
 
-
 /*
 import package
 
@@ -57,7 +56,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detail/:projectId" element={<Detail />} />
         <Route path="/create" element={<CreateProject />} />
+<<<<<<< HEAD
+=======
         <Route path="/edit/:project_id" element={<EditProject/>} />
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
       </Routes>
       <Footer />
     </div>

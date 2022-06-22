@@ -3,25 +3,39 @@ import "../App.css";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
+import { useNavigate } from "react-router-dom";
+import {
+  getProejectListPage,
+  getProejectListClickPage,
+} from "../redux/modules/GaYeonSlice";
+=======
 import { useNavigate } from 'react-router-dom';
 import { getProejectListPage, getProejectListClickPage } from "../redux/modules/KmongSlice";
 
 
 
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
 
 const ProjectLists = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+<<<<<<< HEAD
+  const FirstPage = useSelector((state) => state.GaYeon.firstPage);
+
+  React.useEffect(() => {
+    allLengthList();
+=======
   const FirstPage = useSelector( state => state.Kmong.firstPage);
   const PageNumber = useSelector( state => state.Kmong.length);
   console.log("PageNumber ===> ", PageNumber)
  
 
   React.useEffect (() => {
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
     dispatch(getProejectListPage());
-   },[]);
+  }, []);
 
   React.useEffect (() => {
     allLengthList();
@@ -30,44 +44,42 @@ const ProjectLists = () => {
   
   const [pageList, setPageList] = React.useState([]);
 
+<<<<<<< HEAD
+  const allLengthList = () => {
+    let PageList = [];
+    for (let i = 1; i <= Math.ceil(allLength / 5); i++) {
+=======
  const allLengthList = () => {
   let allLength = 6;
    allLength = PageNumber;
 
   let PageList = [];
     for (let i = 1; i <=  Math.ceil(allLength/5); i++) {
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
       PageList.push(i);
     }
     setPageList(PageList);
-  }
+  };
 
   const selectPage = (pageNumber) => {
     dispatch(getProejectListClickPage(pageNumber));
     window.scrollTo(0, 0);
-  }
-
-
+  };
 
   const PageListMap = () => {
     return (
       <>
         <ul>
-          <li className="page-item">
-            &lt;
-          </li>
+          <li className="page-item">&lt;</li>
           {pageList.map((item) => (
-
-            <li className="page-item" onClick={() =>selectPage(item)}>
+            <li className="page-item" onClick={() => selectPage(item)}>
               {item}
             </li>
           ))}
-          <li className="page-item">
-            &gt;
-          </li>
+          <li className="page-item">&gt;</li>
         </ul>
       </>
-    )
-
+    );
   };
 
   const GoDtail = (item) => {
@@ -78,6 +90,25 @@ const ProjectLists = () => {
 
   const GetPageList = () => {
     return (
+<<<<<<< HEAD
+      <>
+        {FirstPage.map((project) => (
+          <Card>
+            <ImgBox>
+              <div />
+            </ImgBox>
+            <TextBox>
+              <TitleWrapper>
+                <CardTitle>
+                  <Dday>D{project.leftDaysForEnd}</Dday>
+                  <Title>{project.title}</Title>
+                </CardTitle>
+                <SubTitle>
+                  <span>{project.bigCategory}</span> /
+                  <span> {project.smallCategory}</span>
+                </SubTitle>
+                {/* <IconBox>
+=======
     <>
     {FirstPage.map((project) => (
       <Card>
@@ -94,40 +125,39 @@ const ProjectLists = () => {
             <span>{project.bigCategory}</span> /<span> {project.smallCategory}</span>
           </SubTitle>
           {/* <IconBox>
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
             <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/ic-location-on@2x.png" />
           </IconBox> */}
-        </TitleWrapper>
+              </TitleWrapper>
 
-        <Comment>
-        {project.description}
-        </Comment>
-        <InfoWrapper>
-          <InfoBox>
-            <InfoTitle>예산</InfoTitle>
-            <Info>{(`${project.budget}`).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</Info>
-          </InfoBox>
-          <Divider />
-          <InfoBox>
-            <InfoTitle>작업 기간</InfoTitle>
-            <Info>{project.workingPeriod} 일</Info>
-          </InfoBox>
-          <Divider />
-          <InfoBox>
-            <InfoTitle>받은 제안</InfoTitle>
-            <Info>1개</Info>
-          </InfoBox>
-        </InfoWrapper>
-      </TextBox>
-    </Card>
-      
-    ))}
-
-    </>
-
-      
-    )
-  }
-
+              <Comment>{project.description}</Comment>
+              <InfoWrapper>
+                <InfoBox>
+                  <InfoTitle>예산</InfoTitle>
+                  <Info>
+                    {`${project.budget}`
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    원
+                  </Info>
+                </InfoBox>
+                <Divider />
+                <InfoBox>
+                  <InfoTitle>작업 기간</InfoTitle>
+                  <Info>{project.workingPeriod} 일</Info>
+                </InfoBox>
+                <Divider />
+                <InfoBox>
+                  <InfoTitle>받은 제안</InfoTitle>
+                  <Info>1개</Info>
+                </InfoBox>
+              </InfoWrapper>
+            </TextBox>
+          </Card>
+        ))}
+      </>
+    );
+  };
 
   const [menu, setMenu] = useState([
     false,
@@ -360,11 +390,10 @@ const ProjectLists = () => {
                 </BtnBox>
               </SortBar>
             </BarWrapper>
-          <GetPageList />
+            <GetPageList />
 
             <Pagination>
               <PageListMap />
-            
             </Pagination>
           </CardContainer>
         </ListContainer>
