@@ -60,22 +60,18 @@ const CreateProject = () => {
   // 프로젝트의 예산
   const budget = React.useRef();
   // 예산 입력 버튼 함수
-  const [money, setMoney] = useState("");
+  let won = 0;
   function submitBudget() {
-    if (budget.current.value < 9999) {
+    if (budget.current.value < 10000) {
       alert("최소 10,000원 이상 입력해주세요.");
     } else {
-      alert(
-        `예산 ${
-          Math.floor(parseInt(budget.current.value) / 1000) * 1000
-        }원이 입력되었습니다.`
-      );
-      setMoney(Math.floor(parseInt(budget.current.value) / 1000) * 1000);
-      const Bmoney = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      won = Math.floor(parseInt(budget.current.value) / 100) * 100;
+      console.log(won);
+      alert(`예산 ${won}원이 입력되었습니다.`);
+      const Bmoney = won.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       budget.current.value = `${Bmoney}원`;
     }
   }
-  //(7500000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
 
   // 세금계산서
   const [checkTax, setCheckTax] = useState(true);
@@ -89,6 +85,7 @@ const CreateProject = () => {
   const workingPeriod = React.useRef();
 
   function submit() {
+    // 프로젝트 작성 리스트
     const newList = {
       progressMethod: "외주",
       projectScope: "500만원 미만",
@@ -103,7 +100,7 @@ const CreateProject = () => {
       solutionInUse: solutionInUse,
       reactable: reactable,
       description: description.current.value,
-      budget: money,
+      budget: won,
       taxInvoice: checkTax,
       volunteerValidDate: volunteerDate.current.value
         .toString()
@@ -113,39 +110,12 @@ const CreateProject = () => {
         .replaceAll("-", "."),
       workingPeriod: parseInt(workingPeriod.current.value),
     };
-    // dispatch(addProjectList(newList));
     console.log(newList);
-    // const formData = new FormData();
-    // formData.append("progressMethod", "외주");
-    // formData.append("projectScope", "500만원 미만");
-    // formData.append("bigCategory", "IT·프로그래밍");
-    // formData.append("smallCategory", "웹사이트 신규 제작");
-    // formData.append("title", text);
-    // formData.append("currentStatus", currentStatus);
-    // formData.append("requiredFunction", requiredFunction);
-    // formData.append("userRelatedFunction", userRelatedFunction);
-    // formData.append("commerceRelatedFunction", commerceRelatedFunction);
-    // formData.append("siteEnvironment", siteEnvironment);
-    // formData.append("solutionInUse", solutionInUse);
-    // formData.append("reactable", reactable);
-    // formData.append("description", description.current.value);
-    // // formData.append("files", file);
-    // formData.append(
-    //   "budget",
-    //   Math.floor(parseInt(budget.current.value) / 1000) * 1000
-    // );
-    // formData.append("taxInvoice", checkTax);
-    // formData.append(
-    //   "volunteerValidDate",
-    //   volunteerDate.current.value.toString().replaceAll("-", ".")
-    // );
-    // formData.append(
-    //   "dueDateForApplication",
-    //   dueDate.current.value.toString().replaceAll("-", ".")
-    // );
-    // formData.append("workingPeriod", parseInt(workingPeriod.current.value));
-    // dispatch(addProjectList(formData));
-    // console.log(formData);
+    const formData = new FormData();
+    formData.append("projectDto", newList);
+    formData.append("files", file);
+    dispatch(addProjectList(formData));
+    console.log(formData);
   }
 
   const onChange = (e) => {
