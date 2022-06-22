@@ -60,6 +60,7 @@ const CreateProject = () => {
   // 프로젝트의 예산
   const budget = React.useRef();
   // 예산 입력 버튼 함수
+  const [money, setMoney] = useState("");
   function submitBudget() {
     if (budget.current.value < 9999) {
       alert("최소 10,000원 이상 입력해주세요.");
@@ -69,10 +70,15 @@ const CreateProject = () => {
           Math.floor(parseInt(budget.current.value) / 1000) * 1000
         }원이 입력되었습니다.`
       );
-      budget.current.value =
-        Math.floor(parseInt(budget.current.value) / 1000) * 1000;
+      setMoney(Math.floor(parseInt(budget.current.value) / 1000) * 1000);
+
+      budget.current.value = money
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   }
+  //(7500000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
+
   // 세금계산서
   const [checkTax, setCheckTax] = useState(true);
   function changeTax() {
@@ -99,7 +105,7 @@ const CreateProject = () => {
       solutionInUse: solutionInUse,
       reactable: reactable,
       description: description.current.value,
-      budget: Math.floor(parseInt(budget.current.value) / 1000) * 1000,
+      budget: money,
       taxInvoice: checkTax,
       volunteerValidDate: volunteerDate.current.value
         .toString()
@@ -525,7 +531,7 @@ const CreateProject = () => {
             <BudgetWrapper>
               <InputBudget>
                 <Input
-                  type="number"
+                  type="text"
                   min="0"
                   placeholder="최소 10,000 원"
                   ref={budget}

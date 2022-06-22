@@ -3,7 +3,7 @@ import axios from "axios";
 
 const SERVER_URL = "http://13.209.22.194";
 
-// Main View 리스트 가져오기
+// 리스트 작성 페이지
 export const addProjectList = createAsyncThunk(
   "ADD/addProjectList",
   async (newList) => {
