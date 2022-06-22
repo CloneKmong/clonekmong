@@ -27,6 +27,7 @@ const HomeRegistedList = () => {
     const GoDtail = (item) => {
       const id = item.project_id
       navigate(`/detail/${id}`);
+      window.scrollTo(0, 0);
     }
 
       return (
@@ -117,7 +118,7 @@ const HomeRegistedList = () => {
             <MainProjectList />
           </MainRegistedListsWrap>
         </MainRegistedListGridWrap>
-        <MainRegistedShowListsBtn>
+        <MainRegistedShowListsBtn onClick={()=> {navigate(`/list`); window.scrollTo(0, 0);}}>
           등록된 프로젝트 전체보기
         </MainRegistedShowListsBtn>
       </MainRegistedListWrap>);

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import HomeImg from "./HomeImg";
 import HomeIcon from "./HomeIcon";
@@ -12,6 +13,7 @@ import HomeAdBottom from "./HomeAdBottom";
 import Footer from "./Footer";
 
 const Home = () => {
+
   return (
     <MainWrap>
       <HomeImg/>

@@ -2,9 +2,14 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import { getProjectDetail } from "../redux/modules/GaYeonSlice";
 import { getProjectDetailFiles } from "../redux/modules/PostSlice";
+=======
+
+import { getProjectDetail } from "../redux/modules/KmongSlice"
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -13,12 +18,19 @@ const Detail = () => {
   const projectDetail = useSelector((state) => state.GaYeon.object);
   const projectDetailFiles = useSelector((state) => state.Post.files);
 
+<<<<<<< HEAD
   React.useEffect(() => {
     const projectId = params.projectId;
+=======
+  const projectDetail = useSelector( state => state.Kmong.object );
+  const [getDetail, setGetDetail] = React.useState(null);
+
+>>>>>>> 98ed8e895e516380daedd7db891adc412eb68d3e
 
     dispatch(getProjectDetail(projectId));
     dispatch(getProjectDetailFiles(projectId));
   }, []);
+
 
   console.log("projectDetail===> ", projectDetail);
   console.log(projectDetailFiles);
