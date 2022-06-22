@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getProjectDetail } from "../redux/modules/GaYeonSlice"
+import { getProjectDetail } from "../redux/modules/KmongSlice"
 
 const Detail = () => {
 
   const dispatch = useDispatch();
   const params = useParams();
 
-  const projectDetail = useSelector( state => state.GaYeon.object );
+  const projectDetail = useSelector( state => state.Kmong.object );
   const [getDetail, setGetDetail] = React.useState(null);
 
 
@@ -18,6 +18,7 @@ const Detail = () => {
    const projectId = params.projectId;
      dispatch( getProjectDetail(projectId));  
   },[]);
+
 
   console.log("projectDetail===> ", projectDetail);
 
