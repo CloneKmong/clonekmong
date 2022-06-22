@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "../App.css";
 import styled from "styled-components";
-
+import { useDispatch } from "react-redux";
+import { addProjectList } from "../redux/modules/PostSlice";
 const CreateProject = () => {
+  const dispatch = useDispatch();
   // input 박스 리셋 버튼
   const [text, setText] = useState("");
   const [btn, setBtn] = useState(false);
@@ -46,7 +48,14 @@ const CreateProject = () => {
   };
   // 의뢰 사항
   const description = React.useRef();
-  const file = React.useRef();
+
+  // 파일 첨부
+  const [file, setFile] = useState("");
+  const handleUpload = (e) => {
+    e.preventDefault();
+    setFile(e.target.files[0]);
+    console.log(file);
+  };
   console.log(file);
   // 프로젝트의 예산
   const budget = React.useRef();
@@ -75,42 +84,40 @@ const CreateProject = () => {
   const dueDate = React.useRef();
   const workingPeriod = React.useRef();
 
-  function submit() {
-    const projectList = {
-      progressMethod: "외주",
-      projectScope: "500만원 미만",
-      bigCategory: "IT·프로그래밍",
-      smallCategory: "웹사이트 신규 제작",
-      title: text,
-      currentStatus: currentStatus,
-      requiredFunction: requiredFunction,
-      userRelatedFunction: userRelatedFunction,
-      commerceRelatedFunction: commerceRelatedFunction,
-      siteEnvironment: siteEnvironment,
-      solutionInUse: solutionInUse,
-      reactable: reactable,
-      description: description.current.value,
-      multiPartFiles: [{ file: file.current.value }],
-      budget: Math.floor(parseInt(budget.current.value) / 1000) * 1000,
-      taxInvoice: checkTax,
-      volunteerValidDate: volunteerDate.current.value
-        .toString()
-        .replaceAll("-", "."),
-      dueDateForApplication: dueDate.current.value
-        .toString()
-        .replaceAll("-", "."),
-      workingPeriod: parseInt(workingPeriod.current.value),
-    };
-
-    console.log(projectList);
-  }
-
-  // 지원자 모집 마감 일자 (string "YYYY.MM.DD" 양식으로 변환)
-  function test() {
-    let dateValue = volunteerDate.current.value.toString();
-    dateValue = dateValue.replaceAll("-", ".");
-    console.log(dateValue);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("progressMethod", "외주");
+    formData.append("projectScope", "500만원 미만");
+    formData.append("bigCategory", "IT·프로그래밍");
+    formData.append("smallCategory", "웹사이트 신규 제작");
+    formData.append("title", text);
+    formData.append("currentStatus", currentStatus);
+    formData.append("requiredFunction", requiredFunction);
+    formData.append("userRelatedFunction", userRelatedFunction);
+    formData.append("commerceRelatedFunction", commerceRelatedFunction);
+    formData.append("siteEnvironment", siteEnvironment);
+    formData.append("solutionInUse", solutionInUse);
+    formData.append("reactable", reactable);
+    formData.append("description", description.current.value);
+    // formData.append("files", file);
+    formData.append(
+      "budget",
+      Math.floor(parseInt(budget.current.value) / 1000) * 1000
+    );
+    formData.append("taxInvoice", checkTax);
+    formData.append(
+      "volunteerValidDate",
+      volunteerDate.current.value.toString().replaceAll("-", ".")
+    );
+    formData.append(
+      "dueDateForApplication",
+      dueDate.current.value.toString().replaceAll("-", ".")
+    );
+    formData.append("workingPeriod", parseInt(workingPeriod.current.value));
+    dispatch(addProjectList(formData));
+    console.log(formData);
+  };
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -479,7 +486,11 @@ const CreateProject = () => {
             <br />
             <TextArea ref={description} />
             <div>
-              <input type="file" ref={file} />
+              <input
+                type="file"
+                accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
+                onChange={handleUpload}
+              />
             </div>
             <br />
             <hr />
@@ -530,7 +541,9 @@ const CreateProject = () => {
             </SubmitTitle>
             <br />
             <br />
-            <BtnSubmit onClick={submit}>프로젝트 등록 완료하기</BtnSubmit>
+            <BtnSubmit onSubmit={handleSubmit}>
+              프로젝트 등록 완료하기
+            </BtnSubmit>
           </Box>
         </BoxWrapper>
       </Container>
