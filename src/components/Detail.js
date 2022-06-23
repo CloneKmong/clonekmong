@@ -8,7 +8,7 @@ const Detail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
-  const projectDetail = useSelector((state) => state.Kmong.object);
+  const projectDetail = useSelector((state) => state.Kmong.object);  
   const projectDetailUrl = useSelector((state) => state.Kmong.fileUrl);
   const projectDetailName = useSelector((state) => state.Kmong.fileName);
   useEffect(() => {

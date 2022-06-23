@@ -201,7 +201,7 @@ const EditProject = () => {
     // );
     // formData.append("files", file);
     dispatch(modifyEditProjectList({ id: project_id, token, Data:projectDto }));
-    navigate("/mypage");
+    navigate("/");
   }
 
   const onReset = () => {

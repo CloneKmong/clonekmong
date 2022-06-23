@@ -125,7 +125,7 @@ const CreateProject = () => {
     );
     formData.append("files", file);
     dispatch(addProjectList(formData));
-    navigate("/mypage");
+    navigate("/");
   }
 
   const onChange = (e) => {

@@ -59,7 +59,7 @@ const HomeRegistedList = () => {
               <MainRegistedBottonDiv />
               <MainRegstedTimeWrap>
                 <MainRegstedTimeImg />
-                <span>{item.workingPeriod}</span>
+                <span>{item.workingPeriod}일</span>
               </MainRegstedTimeWrap>
             </MainRegistedListContentBottom>
           </MainRegistedListContentWrap>
