@@ -30,9 +30,9 @@
 
 | 이름 | 개인 블로그 링크 | 깃허브 링크 | 프론트&백엔드 |
 | --- | --- | --- | --- |
-| 이가연 | https://2022gygy.tistory.com/ | https://github.com/gygy2022 | 프론트 |
 | 조해솔 | https://velog.io/@solpine | https://github.com/sol-pine | 프론트 |
 | 한지용 | https://velog.io/@jigom | https://github.com/jigomgom | 프론트 |
+| 이가연 | https://2022gygy.tistory.com/ | https://github.com/gygy2022 | 프론트 |
 | 이동재 | https://velog.io/@djlesque | https://github.com/Epikoding | 백엔드 |
 | 박세열 | https://park-se-yeol.tistory.com/ | https://park-se-yeol.tistory.com/ | 백엔드 |
 | 김민지 | https://velog.io/@alswlwkd20 | https://github.com/minji-kim525 | 백엔드 |
