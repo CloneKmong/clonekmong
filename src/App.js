@@ -31,6 +31,7 @@ function App() {
   
 
   const [underBar, setUnderBar] = React.useState(true);
+  const [menu, setMenu] = React.useState(true);
 
   React.useEffect (() => {
     if (location.pathname === '/') {
@@ -40,15 +41,23 @@ function App() {
     } else {
       setUnderBar(false);
     }
+
+    if (location.pathname === '/mypage') {
+      setMenu(false);
+    } else if (location.pathname === "/signup") {
+      setMenu(false);
+    }
+    else {
+      setMenu(true);
+    }
    },[location]);
 
 
   return (
     <div className="App">
-      <Header underBar={underBar}/>
+      <Header underBar={underBar} menu={menu}/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyKmong />} />
         <Route path="/list" element={<ProjectLists />} />
         <Route path="/list/:page" element={<ProjectLists />} />

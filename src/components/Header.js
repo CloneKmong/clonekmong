@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import Login from "./Login";
+
 const Header = (props) => {
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = React.useState(false);
 
   const token = localStorage.getItem("access_token")
 
@@ -13,7 +17,9 @@ const Header = (props) => {
  };
 
   return (
-    <HeaderContainer>
+    <>
+    {modalOpen && <Login setModalOpen={setModalOpen}/>}
+    <HeaderContainer menu={props.menu}>
       <HeaderFirstWrap>
         <HeaderFirstLeftWrap onClick={() => navigate(`/`)}>
           <svg
@@ -49,7 +55,7 @@ const Header = (props) => {
         
         :
         (<>
-        <HeaderLogin onClick={() => navigate(`/login`)}>로그인</HeaderLogin>
+        <HeaderLogin onClick={() =>setModalOpen(true) }>로그인</HeaderLogin>
           <HeaderSignUp onClick={() => navigate(`/signup`)}>
             무료 회원가입
           </HeaderSignUp>
@@ -62,7 +68,7 @@ const Header = (props) => {
           
         </HeaderFirstRightWrap>
       </HeaderFirstWrap>
-      <HeaderSecondWrap>
+      <HeaderSecondWrap menu={props.menu}>
         <HeaderSecondLeftWrap>
           <HeaderHomeWrap>
             <HeaderHome underBar={props.underBar} onClick={() => navigate(`/`)}>
@@ -83,11 +89,12 @@ const Header = (props) => {
         {/* <HeaderHiddenMessage>지금 가입하면 <span style={{ fontWeight:"bold" }}>10만원</span> 혜택</HeaderHiddenMessage> */}
       </HeaderSecondWrap>
     </HeaderContainer>
+    </>
   );
 };
 // header 전체 div
 const HeaderContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.menu ? "flex" : "none")};
   flex-direction: column;
   width: 1200px;
   margin: auto;
@@ -173,7 +180,7 @@ const HeaderSecondWrap = styled.div`
   width: 1100px;
   height: 40px;
   /* border: 1px solid black; */
-  display: flex;
+  display: ${(props) => (props.menu ? "flex" : "none")};
   justify-content: space-between;
   /* justify-content: center; */
   align-items: center;
