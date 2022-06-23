@@ -5,6 +5,13 @@ import { useNavigate } from "react-router-dom";
 const Header = (props) => {
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("access_token")
+
+  const ClickLogOut = () => {
+    localStorage.removeItem("access_token");
+    window.location.replace('/');
+ };
+
   return (
     <HeaderContainer>
       <HeaderFirstWrap>
@@ -33,15 +40,26 @@ const Header = (props) => {
         </HeaderFirstLeftWrap>
         <HeaderFirstRightWrap>
           {/* 로그인 시 */}
-          {/* <HeaderMessage>메세지</HeaderMessage>
-          <HeaderMyKmong>마이크몽</HeaderMyKmong>
-          <HeaderIcon src="https://kmong.com/img/tools/main_user_gray.png"/> */}
 
-          {/* 로그 아웃시 */}
-          <HeaderLogin onClick={() => navigate(`/login`)}>로그인</HeaderLogin>
+          { token ? (<>
+          <HeaderLogOut onClick={ClickLogOut}>로그아웃</HeaderLogOut>
+          <HeaderMyKmong onClick={() => navigate(`/mypage`)}>마이크몽</HeaderMyKmong>
+          <HeaderIcon src="https://kmong.com/img/tools/main_user_gray.png"/>
+          </>)
+        
+        :
+        (<>
+        <HeaderLogin onClick={() => navigate(`/login`)}>로그인</HeaderLogin>
           <HeaderSignUp onClick={() => navigate(`/signup`)}>
             무료 회원가입
           </HeaderSignUp>
+          </>)
+        
+        }
+          
+
+          {/* 로그 아웃시 */}
+          
         </HeaderFirstRightWrap>
       </HeaderFirstWrap>
       <HeaderSecondWrap>
@@ -72,19 +90,18 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 1200px;
-  height: 110px;
   margin: auto;
 `;
 const HeaderFirstWrap = styled.div`
   width: 1200px;
-  height: 70px;
+  height: 74px;
   display: flex;
   justify-content: space-between;
 `;
 
 const HeaderFirstLeftWrap = styled.div`
   display: flex;
-  height: 68px;
+  height: 74px;
   align-items: center;
   margin-left: 15px;
 `;
@@ -103,20 +120,22 @@ const HeaderFirstLeftText = styled.div`
 
 const HeaderFirstRightWrap = styled.div`
   display: flex;
-  height: 60px;
+  height: 74px;
   align-items: center;
   margin-right: 15px;
 `;
 
-const HeaderMessage = styled.div`
+const HeaderLogOut = styled.div`
   padding: 0 22px;
   font-weight: 500;
+  cursor: pointer;
 `;
 
 const HeaderMyKmong = styled.div`
   padding: 0 22px;
   font-weight: 500;
   margin-right: 18px;
+  cursor: pointer;
 `;
 
 const HeaderIcon = styled.img`

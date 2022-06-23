@@ -264,7 +264,6 @@ let LoginModal = styled.div`
 let Imgbox = styled.div`
   width: 600px;
   height: 656px;
-  background-color: red;
   display: flex;
   flex: 0 0 600px;
   overflow: hidden;
