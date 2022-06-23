@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getProjectDetail } from "../redux/modules/KmongSlice";
-
 const Detail = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -12,15 +11,11 @@ const Detail = () => {
   const projectDetail = useSelector((state) => state.Kmong.object);
   const projectDetailUrl = useSelector((state) => state.Kmong.fileUrl);
   const projectDetailName = useSelector((state) => state.Kmong.fileName);
-
-
   useEffect(() => {
     console.log(projectDetailName.includes(".pdf"));
     const projectId = params.projectId;
     dispatch(getProjectDetail(projectId));
   }, [projectDetailName]);
-
-
   return (
     <>
       <Container>
@@ -54,7 +49,6 @@ const Detail = () => {
           <TextWrapper>
             <SubTitle>구체적인 내용 설명</SubTitle>
             <SubText>{projectDetail?.description}</SubText>
-
             {projectDetailUrl == "" ? null : (
               <FileBox>
                 {projectDetailName.includes(".jpg") ||
@@ -64,13 +58,11 @@ const Detail = () => {
                 ) : (
                   <FileThumbnail src="https://png.pngtree.com/png-vector/20190118/ourlarge/pngtree-vector-files-icon-png-image_323843.jpg" />
                 )}
-
                 <FileTitle href={projectDetailUrl}>
                   {projectDetailName}
                 </FileTitle>
               </FileBox>
             )}
-
           </TextWrapper>
           <TextWrapper>
             <SubTitle>프로젝트 작업 마감 일자</SubTitle>
@@ -119,7 +111,7 @@ const Detail = () => {
                 navigate("/create");
               }}
             >
-              비슷한 프로젝트 의뢰하기 >
+              비슷한 프로젝트 의뢰하기
             </BtnSubmit>
           </ContentWrapper>
         </RightBox>
@@ -190,9 +182,8 @@ const ProfileWrapper = styled.div`
   padding: 24px 40px;
   width: 358px;
   height: 320px;
-  border: 1px solid #e4e5ed;
+  border: 1px solid #E4E5ED;
 `;
-
 const ProfileBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -221,7 +212,6 @@ const ProfileTitle = styled.div`
   font-weight: 500;
   color: #303441;
 `;
-
 const Need = styled.div`
   position: absolute;
   right: 0;
@@ -234,7 +224,6 @@ const BudgetBox = styled.div`
   margin-top: 60px;
   position: relative;
 `;
-
 const Budget = styled.div`
   position: absolute;
   right: 0;
@@ -242,10 +231,9 @@ const Budget = styled.div`
   font-size: 28px;
   font-weight: 700;
 `;
-
 const BtnPropose = styled.div`
   width: 358px;
-  background: #ffd400;
+  background: #FFD400;
   height: 52px;
   font-size: 16px;
   font-weight: 700;
@@ -269,7 +257,7 @@ const Msg = styled.div`
   color: #727585;
   font-weight: 500;
   span {
-    color: #f5c126;
+    color: #F5C126;
     font-weight: 900;
   }
 `;
@@ -277,10 +265,9 @@ const ContentWrapper = styled.div`
   padding: 24px 40px;
   width: 358px;
   height: 151px;
-  border: 1px solid #e4e5ed;
+  border: 1px solid #E4E5ED;
   margin-top: 15px;
 `;
-
 const ContentTitle = styled.div`
   font-size: 17px;
   font-weight: 900;

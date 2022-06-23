@@ -116,7 +116,7 @@ const MainContentBtn2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: not-allowed;
 
   &:hover {
     background-color: rgba(255, 212, 0, 0.1);

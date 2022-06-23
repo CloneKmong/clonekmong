@@ -74,6 +74,7 @@ const Login = ({setModalOpen}) => {
   };
 
   const LoginClickEvent = async () => {
+    setModalOpen(false);
     const LoginUserInfo = {
       username: email_Ref.current.value,
       password: pw_Ref.current.value,
