@@ -6,8 +6,26 @@ import axios from "axios";
 
 const SERVER_URL = "http://13.209.22.194";
 
-const Login = () => {
+const Login = ({setModalOpen}) => {
+
+  React.useEffect(() => {
+     document.body.style.cssText = `
+  position: fixed;
+  top: -${window.scrollY}px;
+  overflow-y: scroll;
+  width: 100%;`;
+   return () => {
+      const scrollY = document.body.style.top ;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+   };
+
+ }, []);
+
+
+
   // 지용 코드 시작
+  
   const navigate = useNavigate();
   const [email_msg, set_email_msg] = React.useState(null);
   const [email_check, set_email_check] = React.useState(false);
@@ -85,6 +103,7 @@ const Login = () => {
     <>
       <LoginWrap>
         <LoginModal>
+          <Close onClick={() => setModalOpen(false)}>X</Close>
           <Imgbox>
             <img src="https://kmong.com/_next/image?url=https%3A%2F%2Fd2v80xjmx68n4w.cloudfront.net%2Fassets%2Fimages%2Fdesktop%2Flogin-img-great-park-3-v2.jpg&w=1200&q=75" />
             <p>
@@ -199,11 +218,21 @@ const Login = () => {
   );
 };
 
+let Close = styled.div`
+position:fixed;
+z-index: 20;
+right: 460px;
+margin-top: 10px;
+font-weight: bold;
+cursor: pointer;
+`
+
 let LoginWrap = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
   z-index: 11;
+  top: 0;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
@@ -240,7 +269,7 @@ let LoginModal = styled.div`
   padding: 0px;
   text-align: left;
   height: 656px;
-  margin: 64px;
+  margin: 154px;
   max-width: 1024px;
   overflow: hidden;
 
@@ -264,7 +293,6 @@ let LoginModal = styled.div`
 let Imgbox = styled.div`
   width: 600px;
   height: 656px;
-  background-color: red;
   display: flex;
   flex: 0 0 600px;
   overflow: hidden;

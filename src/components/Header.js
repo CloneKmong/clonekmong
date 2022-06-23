@@ -2,11 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import Login from "./Login";
+
 const Header = (props) => {
   const navigate = useNavigate();
 
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const token = localStorage.getItem("access_token")
+
+  const ClickLogOut = () => {
+    localStorage.removeItem("access_token");
+    window.location.replace('/');
+ };
+
   return (
-    <HeaderContainer>
+    <>
+    {modalOpen && <Login setModalOpen={setModalOpen}/>}
+    <HeaderContainer menu={props.menu}>
       <HeaderFirstWrap>
         <HeaderFirstLeftWrap onClick={() => navigate(`/`)}>
           <svg
@@ -33,18 +46,29 @@ const Header = (props) => {
         </HeaderFirstLeftWrap>
         <HeaderFirstRightWrap>
           {/* 로그인 시 */}
-          {/* <HeaderMessage>메세지</HeaderMessage>
-          <HeaderMyKmong>마이크몽</HeaderMyKmong>
-          <HeaderIcon src="https://kmong.com/img/tools/main_user_gray.png"/> */}
 
-          {/* 로그 아웃시 */}
-          <HeaderLogin onClick={() => navigate(`/login`)}>로그인</HeaderLogin>
+          { token ? (<>
+          <HeaderLogOut onClick={ClickLogOut}>로그아웃</HeaderLogOut>
+          <HeaderMyKmong onClick={() => navigate(`/mypage`)}>마이크몽</HeaderMyKmong>
+          <HeaderIcon src="https://kmong.com/img/tools/main_user_gray.png"/>
+          </>)
+        
+        :
+        (<>
+        <HeaderLogin onClick={() =>setModalOpen(true) }>로그인</HeaderLogin>
           <HeaderSignUp onClick={() => navigate(`/signup`)}>
             무료 회원가입
           </HeaderSignUp>
+          </>)
+        
+        }
+          
+
+          {/* 로그 아웃시 */}
+          
         </HeaderFirstRightWrap>
       </HeaderFirstWrap>
-      <HeaderSecondWrap>
+      <HeaderSecondWrap menu={props.menu}>
         <HeaderSecondLeftWrap>
           <HeaderHomeWrap>
             <HeaderHome underBar={props.underBar} onClick={() => navigate(`/`)}>
@@ -65,26 +89,26 @@ const Header = (props) => {
         {/* <HeaderHiddenMessage>지금 가입하면 <span style={{ fontWeight:"bold" }}>10만원</span> 혜택</HeaderHiddenMessage> */}
       </HeaderSecondWrap>
     </HeaderContainer>
+    </>
   );
 };
 // header 전체 div
 const HeaderContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.menu ? "flex" : "none")};
   flex-direction: column;
   width: 1200px;
-  height: 110px;
   margin: auto;
 `;
 const HeaderFirstWrap = styled.div`
   width: 1200px;
-  height: 70px;
+  height: 74px;
   display: flex;
   justify-content: space-between;
 `;
 
 const HeaderFirstLeftWrap = styled.div`
   display: flex;
-  height: 68px;
+  height: 74px;
   align-items: center;
   margin-left: 15px;
 `;
@@ -103,20 +127,22 @@ const HeaderFirstLeftText = styled.div`
 
 const HeaderFirstRightWrap = styled.div`
   display: flex;
-  height: 60px;
+  height: 74px;
   align-items: center;
   margin-right: 15px;
 `;
 
-const HeaderMessage = styled.div`
+const HeaderLogOut = styled.div`
   padding: 0 22px;
   font-weight: 500;
+  cursor: pointer;
 `;
 
 const HeaderMyKmong = styled.div`
   padding: 0 22px;
   font-weight: 500;
   margin-right: 18px;
+  cursor: pointer;
 `;
 
 const HeaderIcon = styled.img`
@@ -154,7 +180,7 @@ const HeaderSecondWrap = styled.div`
   width: 1100px;
   height: 40px;
   /* border: 1px solid black; */
-  display: flex;
+  display: ${(props) => (props.menu ? "flex" : "none")};
   justify-content: space-between;
   /* justify-content: center; */
   align-items: center;

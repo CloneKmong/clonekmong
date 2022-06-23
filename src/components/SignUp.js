@@ -289,7 +289,7 @@ const SignUp = () => {
 
   return (
     <>
-      {/* <KmongTitle>
+      <KmongTitle onClick={() => navigate('/')}>
         <svg
           width="85"
           height="100%"
@@ -302,7 +302,7 @@ const SignUp = () => {
             fill-rule="evenodd"
           ></path>
         </svg>
-      </KmongTitle> */}
+      </KmongTitle>
       <SignUpWrap>
         <h1>딱 이것만 체크하면 가입 완료!</h1>
 
@@ -616,10 +616,11 @@ let KmongInfo = styled.p`
 `;
 
 let KmongTitle = styled.div`
-  margin: 0 auto;
+  margin: 60px auto;
   position: relative;
   display: flex;
   width: 85px;
+  cursor: pointer;
 `;
 let CheckMsg = styled.div`
   color: red;
