@@ -13,11 +13,13 @@ const Detail = () => {
   const projectDetailUrl = useSelector((state) => state.Kmong.fileUrl);
   const projectDetailName = useSelector((state) => state.Kmong.fileName);
 
+
   useEffect(() => {
     console.log(projectDetailName.includes(".pdf"));
     const projectId = params.projectId;
     dispatch(getProjectDetail(projectId));
   }, [projectDetailName]);
+
 
   return (
     <>
@@ -52,6 +54,7 @@ const Detail = () => {
           <TextWrapper>
             <SubTitle>구체적인 내용 설명</SubTitle>
             <SubText>{projectDetail?.description}</SubText>
+
             {projectDetailUrl == "" ? null : (
               <FileBox>
                 {projectDetailName.includes(".jpg") ||
@@ -67,6 +70,7 @@ const Detail = () => {
                 </FileTitle>
               </FileBox>
             )}
+
           </TextWrapper>
           <TextWrapper>
             <SubTitle>프로젝트 작업 마감 일자</SubTitle>

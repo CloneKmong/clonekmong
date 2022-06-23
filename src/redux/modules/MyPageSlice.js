@@ -3,9 +3,9 @@ import axios from "axios";
 
 const SERVER_URL = "http://13.209.22.194";
 
-// Main View 리스트 가져오기
+// MyPage 리스트 조회
 export const getMyProjectList = createAsyncThunk( "GET/createAsyncThunk", async ( token ) => {
-    console.log( token )
+    // console.log( token )
     return await axios.get(`${SERVER_URL}/mypage/projects`, 
     { headers: { Authorization: token } })
     .then( res=> res.data  )
@@ -13,41 +13,28 @@ export const getMyProjectList = createAsyncThunk( "GET/createAsyncThunk", async 
 });
 
 export const editMyProjectList = createAsyncThunk( "EDIT/editMyProjectList", async ( args ) => {
-
+  
 });
-
+// MyPage 리스트 삭제
 export const deleteMyProjectList = createAsyncThunk( "DELETE/", async ( args ) => {
-    // console.log( args );
     let result = false;
+    console.log( args );
     await axios.delete(`${SERVER_URL}/projects/project/${args.id}`, 
     { 
       headers: { Authorization: args.token } 
     } )
     .then( res => {
-        if( res.data.ok ){
+        // console.log( res.data );
+        if( res.data === "삭제에 성공하였습니다." ){
             result = true;
         }
-        console.log( res.data ) 
+        
     });
     if( result ){
         return args.id;
     }
 });
-//   "ADD/addProjectList",
-//   async (newList) => {
-//     const response = await axios.post(
-//       `${SERVER_URL}/projects/project`,
-//       newList,
-//       {
-//         headers: {
-//           //   "Content-Type": "multipart/form-data",
-//           Authorization: localStorage.getItem("access_token"),
-//         },
-//       }
-//     );
-//     return response.data;
-//   }
-// );
+
 
 const MyPageSlice = createSlice({
   name: "MyPageSlice",
@@ -64,15 +51,12 @@ const MyPageSlice = createSlice({
 
     },
     [deleteMyProjectList.fulfilled]: (state, action) => {
-        console.log("?? ", action.payload );
-        console.log( current( state.list ) );
-        // if (action.payload) {
-        //     const lists = current(state.list).filter((item, index) => {
-        //       return item.id !== action.payload;
-        //     });
-        //     console.log("Delete fullfill");
-        //     state.list = lists;
-        // }
+        if( action.payload ){
+            const lists = current(state.list).filter((item, index) => {
+              return item.project_id !== action.payload;
+            });
+            state.list = lists;
+        }
     }
   },
 });

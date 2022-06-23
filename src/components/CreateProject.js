@@ -391,7 +391,7 @@ const CreateProject = () => {
                 value="해외결제"
                 onChange={handleCommerceRelatedFunction}
               />
-              <span>해외결제(페이팔)</span>
+              <span>해외결제</span>
             </Select>
             <br />
             <SubTitle>사이트 환경</SubTitle>
@@ -420,7 +420,7 @@ const CreateProject = () => {
                 value="보안"
                 onChange={handleSiteEnvironment}
               />
-              <span>보안(SSL 인증)</span>
+              <span>보안</span>
             </Select>
             <Select>
               <Input
