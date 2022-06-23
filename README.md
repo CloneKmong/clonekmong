@@ -28,47 +28,47 @@
 
 - 2022년 06월 16일 ~ 2022년 06월 23일
 
-| 이름 | 개인 블로그 링크 | 깃허브 링크 | 프론트&백엔드 |
-| --- | --- | --- | --- |
-| 조해솔 | https://velog.io/@solpine | https://github.com/sol-pine | 프론트 |
-| 한지용 | https://velog.io/@jigom | https://github.com/jigomgom | 프론트 |
-| 이가연 | https://2022gygy.tistory.com/ | https://github.com/gygy2022 | 프론트 |
-| 이동재 | https://velog.io/@djlesque | https://github.com/Epikoding | 백엔드 |
-| 박세열 | https://park-se-yeol.tistory.com/ | https://park-se-yeol.tistory.com/ | 백엔드 |
-| 김민지 | https://velog.io/@alswlwkd20 | https://github.com/minji-kim525 | 백엔드 |
+| 이름 | 깃허브 링크 | 프론트&백엔드 |
+| --- | --- | --- |
+| 조해솔 | https://github.com/sol-pine | 프론트 |
+| 한지용 | https://github.com/jigomgom | 프론트 |
+| 이가연 | https://github.com/gygy2022 | 프론트 |
+| 이동재 | https://github.com/Epikoding | 백엔드 |
+| 박세열 | https://park-se-yeol.tistory.com/ | 백엔드 |
+| 김민지 | https://github.com/minji-kim525 | 백엔드 |
 
 > **조원 역할 및 기능 개발 설명**
 > 
 > 
-> > **조해솔**
+> > **조해솔 FE**
 > > 
 > > - Project List view, Detail view, Create view 작업
 > > - 프로젝트 의뢰 생성 구현
 > > - 프로젝트 의뢰 파일 첨부 및 썸네일 미리보기 구현
 > 
-> > **한지용**
+> > **한지용 FE**
 > > 
 > > - Main view 작성
 > > - 서버간 통신 테스트 및 사전 가이드라인 작성
 > > - 로그인, 회원가입, 의뢰 수정 및 삭제 구현
 > 
-> > **이가연**
+> > **이가연 FE**
 > > 
 > > - Login view, SignUp view, MyKmong view  작업
 > > - 서버에서 받아오는 데이터를 화면에 뿌리는 작업
 > > - 페이지네이션 구현
 > 
-> > **이동재**
+> > **이동재 BE**
 > > 
 > > - 로그인 & 회원가입 기능 구현
 > > - security 설정
 > 
-> > **박세열**
+> > **박세열 BE**
 > > 
 > > - 홈 화면 조회 기능 및 프로젝트 리스트 조회  기능
 > > - 파일 업로드 및 검색 기능, 소셜 로그인 기능
 > 
-> > **김민지**
+> > **김민지 BE**
 > > 
 > > - 프로젝트 CRUD, 페이징 처리
 > > - MVC 패턴 설계
