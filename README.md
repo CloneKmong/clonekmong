@@ -179,8 +179,6 @@
 
 ## 🎮 **7. Trouble shooting**
 
-## Front-end
-
 > **Redux의 state( 1 )**
 > 
 > 
@@ -226,67 +224,9 @@
 > > **해결 방법** :  ****JSON.stringify 로 변환 후 append하여 해결
 > > 
 
-## Back-end
-
-> `editProject`에서 `response` 값
-> 
-> 
-> > **이슈 내용** : 수정할 때, 중복체크에서 `String`으로 받은 값을 프론트에 어떻게 `response` 해줄지에 대한 이슈
-> > 
-> 
-> > **해결 방법** :  “,” 로 `split`한 다음, `map`으로 `string(key):true(value)`로 보내는 것으로 결정
-> > 
-
-> **modal 접근 불가**
-> 
-> 
-> > **이슈 내용**:  `projects/modal`로 했을 때 접근이 안 되었던 이슈.
-> > 
-> 
-> > **해결 방법** :  `List`는 복수 개의 fetch 가 안됨으로 컬럼 타입 `Set`으로 변경
-> > 
-
-> **올바른 jwt 토큰이 아닙니다 에러**
-> 
-> 
-> > **이슈 내용**:  기타 조회 기능들을 사용할 때 500 internal server error 이슈
-> > 
-> 
-> > **해결 방법** :  `skipPathList`에 `GET` 매핑 api 추가
-> > 
-
-> **프로젝트 추가 시 파일 제외**
-> 
-> 
-> > **이슈 내용**:  기존에 있던 컨트롤러에서는 파일을 꼭 올려야 했던 이슈
-> > 
-> 
-> > **해결 방법** :  `@RequestPart(value = "files",required = false)  required = false` 추가
-> > 
-
-> **검색 기능 관련 키워드 조회 이슈**
-> 
-> 
-> > **이슈 내용**:  JPA 키워드 중 `LIKE(”%KEYWORD%”)`와 같은 역할을 하는 문법 필요 이슈
-> > 
-> 
-> > **해결 방법** :  `findByTitleContainingOrderByCreatedAt(String keyword)` 문법을 통해 해결, Containing 문법이 SQL의 LIKE 역할을 함
-> > 
-
-> **존재하지 않는 회원이 로그인을 할 때 500에러가 발생.**
-> 
-> 
-> > **이슈 내용** :  `JpaRepository`를 상속받은 `UserRepository`에서 `Optional`클래스를 사용한 `User`객체를 사용하는 조건에서 존재하지 않는 회원ID로 로그인을 시도할 때 500에러를 발생함.
-> > 
-> 
-> > **해결 방법** :  `UserRepository`에서 `Optional<User>`을 `User`로 변경. 자세한 설명은 하기 ‘8-2.의 Optional 객체’ 참고.
-> > 
-
 ---
 
 ## ⚙️ **8. 주목할 만한 코드**
-
-## 8-1. Front-end
 
 ### 데이터 필터링
 
