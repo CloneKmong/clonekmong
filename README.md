@@ -1,6 +1,6 @@
 # ****🎡 크몽(kmong) - 클론코딩****
 
----
+<br/>
 
 ## 🎑 클론코딩으로 크몽을 선택하게 된 목적 & 개발 백그라운드
 
@@ -22,7 +22,7 @@
 
 보다 자세한 사항은 하기 ‘**3. Wireframe - 크몽’**에서 참고하실 수 있습니다.
 
----
+<br/>
 
 ## 👥 **1. 제작 기간 & 팀원 소개**
 
@@ -73,7 +73,7 @@
 > > - 프로젝트 CRUD, 페이징 처리
 > > - MVC 패턴 설계
 
----
+<br/>
 
 ## ****🧰**** **2. 사용 기술 및 툴**
 
@@ -104,7 +104,7 @@
 - AWS
 - FileZilla
 
----
+<br/>
 
 ## 🖇️ **3. Wireframe - 크몽**
 
@@ -136,7 +136,7 @@
 
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/309201f7-492b-4b09-a5d2-e1c92acc8a91/Untitled.png)
 
----
+<br/>
 
 ## 🖇️ **4. S.A (Starting Assignment)**
 
@@ -145,7 +145,7 @@
 
 </aside>
 
----
+<br/>
 
 ## 🖇️ **5. 실행화면 유튜브**
 
@@ -154,7 +154,7 @@
 
 </aside>
 
----
+<br/>
 
 ## 💯 **6. 핵심기능**
 
@@ -174,8 +174,8 @@
     - 상세 페이지에서 파일 확인 가능
 - 파일 업로드(2)
     - 프론트에서 파일을 업로드하기 위해 JSON.stringfy와 Blob으로 2진화 데이터 생성
-
----
+    
+<br/>
 
 ## 🎮 **7. Trouble shooting**
 
@@ -224,7 +224,7 @@
 > > **해결 방법** :  ****JSON.stringify 로 변환 후 append하여 해결
 > > 
 
----
+<br/>
 
 ## ⚙️ **8. 주목할 만한 코드**
 
@@ -286,7 +286,7 @@
         formData.append("files", file);
     ```
 
----
+<br/>
 
 ## 📐 9**. API**
 
@@ -306,7 +306,7 @@
 | 파일 전송 | POST | /projects/project/file | {<br>폼데이터로 파일 보내기<br>} | {<br>’ok’: true, <br>message: ‘파일 업로드 완료’ <br>}<br>OR <br>{<br>‘ok’: false, <br>message:’파일 업로드 실패’<br>} |  |
 | 파일 삭제 | DELETE | /projects/project/file/{projectId} |  | {<br>’ok’: true, <br>message: ‘파일 삭제완료’ <br>}<br>OR <br>{<br>‘ok’: false, <br>message:’파일 삭제실패’<br>} |  |
 
----
+<br/>
 
 ## 💏 **10조 한 줄 회고**
 
