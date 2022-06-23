@@ -12,14 +12,15 @@ const Detail = () => {
   const projectDetail = useSelector((state) => state.Kmong.object);
   const projectDetailUrl = useSelector((state) => state.Kmong.fileUrl);
   const projectDetailName = useSelector((state) => state.Kmong.fileName);
-  React.useEffect(() => {
+
+
+  useEffect(() => {
+    console.log(projectDetailName.includes(".pdf"));
     const projectId = params.projectId;
-
     dispatch(getProjectDetail(projectId));
-  }, []);
+  }, [projectDetailName]);
 
-  console.log("projectDetail===> ", projectDetail);
-  console.log(projectDetailUrl, projectDetailName);
+
   return (
     <>
       <Container>
@@ -53,10 +54,23 @@ const Detail = () => {
           <TextWrapper>
             <SubTitle>구체적인 내용 설명</SubTitle>
             <SubText>{projectDetail?.description}</SubText>
-            <FileBox>
-              <FileThumbnail src={projectDetailUrl} />
-              <FileTitle href={projectDetailUrl}>{projectDetailName}</FileTitle>
-            </FileBox>
+
+            {projectDetailUrl == "" ? null : (
+              <FileBox>
+                {projectDetailName.includes(".jpg") ||
+                projectDetailName.includes(".jpeg") ||
+                projectDetailName.includes(".png") ? (
+                  <FileThumbnail src={projectDetailUrl} />
+                ) : (
+                  <FileThumbnail src="https://png.pngtree.com/png-vector/20190118/ourlarge/pngtree-vector-files-icon-png-image_323843.jpg" />
+                )}
+
+                <FileTitle href={projectDetailUrl}>
+                  {projectDetailName}
+                </FileTitle>
+              </FileBox>
+            )}
+
           </TextWrapper>
           <TextWrapper>
             <SubTitle>프로젝트 작업 마감 일자</SubTitle>
