@@ -19,7 +19,7 @@ const Header = (props) => {
   return (
     <>
     {modalOpen && <Login setModalOpen={setModalOpen}/>}
-    <HeaderContainer menu={props.menu}>
+    <HeaderContainer allHeader={props.allHeader}>
       <HeaderFirstWrap>
         <HeaderFirstLeftWrap onClick={() => navigate(`/`)}>
           <svg
@@ -94,7 +94,7 @@ const Header = (props) => {
 };
 // header 전체 div
 const HeaderContainer = styled.div`
-  display: ${(props) => (props.menu ? "flex" : "none")};
+  display: ${(props) => (props.allHeader ? "flex" : "none")};
   flex-direction: column;
   width: 1200px;
   margin: auto;
