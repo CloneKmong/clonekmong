@@ -25,7 +25,9 @@ const Sites = ["다국어 지원", "관리자 페이지", "보안", "GA 설치"]
 
 export const modifyEditProjectList = createAsyncThunk(
   "PUT/modifyEditProjectList",
+  
   async (args) => {
+    console.log(args.Data);
     console.log(args);
     await axios
       .put(`${SERVER_URL}/projects/project/${args.id}`, args.Data, {
@@ -40,11 +42,11 @@ export const modifyEditProjectList = createAsyncThunk(
 );
 
 const EditSlice = createSlice({
-  name: "PostSlice",
+  name: "EditSlice",
   initialState: {
     list: [{
       bigCategory:"",
-      budget:"",
+      budget:0,
       commerceRelatedFunction:"",
       currentStatus:"",
       description:"",
@@ -67,6 +69,8 @@ const EditSlice = createSlice({
   extraReducers: {
     [getEditProjectList.fulfilled]: (state, action) => {
       console.log( action.payload );
+      // console.log("Edit get fullfill");
+      // console.log( action.payload );
       const Valuelist = [ { ...action.payload.responseDtoMap } ];
       const keylist = Object.keys ( Valuelist[0] );
 
@@ -80,7 +84,7 @@ const EditSlice = createSlice({
       state.list[0].title = action.payload.title;
       state.list[0].progressMethod = action.payload.progressMethod;
       state.list[0].description = action.payload.description;
-      state.list[0].budget = action.payload.budget;
+      state.list[0].budget = Number( action.payload.budget );
       state.list[0].dueDateForApplication = action.payload.dueDateForApplication;
       state.list[0].volunteerValidDate = action.payload.volunteerValidDate;
       state.list[0].taxInvoice = action.payload.taxInvoice;
@@ -96,9 +100,9 @@ const EditSlice = createSlice({
       console.log( current(state.list) );
     },
     [modifyEditProjectList.fulfilled]: ( state, action ) => {
-        console.log("fullfill");
+        console.log("edit modify fullfill");
         console.log( current ( state.list ) )
-        state.list = { ...state.list, ...action.payload };
+        state.list = { ...state.list, ...action.payload, budget: Number( action.payload.budget ) };
         console.log( ( state.list ) )
     }
   },

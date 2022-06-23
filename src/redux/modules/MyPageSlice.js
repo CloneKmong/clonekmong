@@ -5,10 +5,9 @@ const SERVER_URL = "http://13.209.22.194";
 
 // MyPage 리스트 조회
 export const getMyProjectList = createAsyncThunk( "GET/createAsyncThunk", async ( token ) => {
-    // console.log( token )
     return await axios.get(`${SERVER_URL}/mypage/projects`, 
     { headers: { Authorization: token } })
-    .then( res=> res.data  )
+    .then( res=>  res.data )
     .catch( e => console.log( e.response ) );
 });
 
@@ -44,8 +43,11 @@ const MyPageSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getMyProjectList.fulfilled]: (state, action) => {
+        console.log("mypage get");
         console.log( action.payload );
+        // if( state.list.length === 1 ){
         state.list = [ ...action.payload ];
+      // }
     },
     [editMyProjectList.fulfilled] : ( state, action ) => {
 

@@ -16,9 +16,8 @@ const Reactable = ["반응형", "비반응형"];
 const EditProject = () => {
   const { project_id } = useParams();
   const editList = useSelector( state => state.Edit.list );
-    console.log( editList );
-    const editSettings = useSelector( state => state.Edit.editSetting );
-    // console.log( editSettings );
+    console.log( "budget ", editList[0].budget );
+    
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
@@ -36,23 +35,33 @@ const EditProject = () => {
   const [ setSolution, setDefaultSolution ] = useState( editList[0].solutionInUse );
   const [ setReactableValue, setDefaultReactable ] = useState( editList[0].reactable );
   const [ setCurrnetStatus, SetDefaultStatus ] = useState( editList[0].currentStatus );
-  // setText( editList[0].title );
+  const [ budgetValue, setBudgetValue ] = useState( editList[0].budget );
+ 
   React.useEffect(()=>{
     dispatch( getEditProjectList( { project_id, token } ) );
-    // setText(editList[0].title);
-    // setDefaultReactable( editSettings.reaction );
-    // setDefaultSolution( editSettings.solution );
-    // setDefaultSites( editSettings.site );
-    // SetDefaultUserRelated( editSettings.user );
-    // setDefaultCommerce( editSettings.commerce );
-    // SetDefaultRequired( editSettings.default );
-    // SetDefaultStatus( editSettings.project );
   },[]);
+
+  React.useEffect(()=>{
+    setText(editList[0].title);
+    setDefaultReactable(  editList[0].reactable );
+    setDefaultSolution( editList[0].solutionInUse );
+    setDefaultSites( editList[0].siteEnvironment );
+    SetDefaultUserRelated( editList[0].userRelatedFunction );
+    setDefaultCommerce( editList[0].commerceRelatedFunction );
+    SetDefaultRequired( editList[0].requiredFunction );
+    SetDefaultStatus( editList[0].currentStatus );
+    setDefautTax( editList[0].taxInvoice );
+    console.log( budgetValue )
+    setBudgetValue( editList[0].budget );
+  },[editList[0]])
 
   const replaceDefaultDate = ( date ) => {
     if( date ){
         return date.replaceAll(".", "-");
     }
+  }
+  const budgetSet = ( budget ) => {
+    console.log( budget );
   }
  
   // 지용 끝
@@ -169,7 +178,7 @@ const EditProject = () => {
       solutionInUse: solutionInUse ? solutionInUse : setSolution,
       reactable: reactable ? reactable : setReactableValue,
       description: description.current.value,
-      budget: budget.current.value ? budget.current.value : editList[0].budget,
+      budget: budget.current.value ? budget.current.value : budgetValue,
       taxInvoice: checkTax,
       volunteerValidDate: volunteerDate.current.value
         .toString()
@@ -451,7 +460,7 @@ const EditProject = () => {
                   min="0"
                   placeholder="최소 10,000 원"
                   ref={budget}
-                  defaultValue={editList[0].budget}
+                  defaultValue={budgetValue}
                 />
               </InputBudget>
               <BtnBudget onClick={submitBudget}>입력</BtnBudget>

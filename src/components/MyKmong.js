@@ -175,33 +175,27 @@ text-align: center;
 
 
 let ContentWrap = styled.div`
-flex: 1;
+  flex: 1;
 
-
-.title_wrap {
-  font-size: 18px;
+  .title_wrap {
+    font-size: 18px;
     font-weight: 700;
     color: #303441;
     margin-bottom: 16px;
-}
+  }
 
+  .project_wrap {
+    height: 160px;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 1px solid #e4e5ed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 
-
-.project_wrap {
-  height: 160px;
-  padding: 30px;
-  box-sizing: border-box;
-  border: 1px solid #e4e5ed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-
-}
-  
-
-.project_image {
+  .project_image {
     flex: 1;
     margin-right: 20px;
     height: 100px;
@@ -209,88 +203,89 @@ flex: 1;
     border-radius: 4px;
     background-position: 50%;
     background-size: cover;
-    background-repeat: no-repeat;  
-}
+    background-repeat: no-repeat;
+  }
 
-.project_content {
+  .project_content {
     flex-basis: 440px;
     margin-right: 40px;
     height: 100%;
-    box-sizing:border-box;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-}
+  }
 
-.title_category {
-
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-direction: column;
-}
-.category_wrap {
+  .title_category {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+  }
+  .category_wrap {
     width: 440px;
     overflow: hidden;
     margin-top: 12px;
-}
-
-#project_id, #project_category {
-  font-size:12px;
-  color:#727585;
-  
-}
-
-#project_title {
-  font-size:14px;
-
-  color: #303441;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow-wrap: normal;
-  width: 440px;
-  overflow: hidden;
-  margin-top: 12px;
-}
-
-#project_id {
-  margin-right:20px;
-}
-
-#project_title {
-  font-size: 14px;
-}
-
-.amount_wrap {
-  text-align: right;
-  font-size: 14px;
-
-}
-
-#amount {
-  font-size: 18px;
-  margin-left: 5px;
-}
-
-.button_wrap {
-  flex-basis: 180px;
-  position: relative;
-
-  button {
-    padding: 13px 15px;
-    font-size: 16px;
-    margin-top: 44px;
-    margin-right: 1.5%;
-    width:48%;
-    color: #9a9ba7 ;
-    background-color: #e4e5ed ;
-    border:none;
-    cursor: pointer;
-    
   }
-}
 
+  #project_id,
+  #project_category {
+    font-size: 12px;
+    color: #727585;
+  }
 
-`
+  #project_title {
+    font-size: 14px;
+
+    color: #303441;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    width: 440px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+
+  #project_id {
+    margin-right: 20px;
+  }
+
+  #project_title {
+    font-size: 14px;
+  }
+
+  .amount_wrap {
+    text-align: right;
+    font-size: 14px;
+  }
+
+  #amount {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+
+  .button_wrap {
+    flex-basis: 180px;
+    position: relative;
+
+    button {
+      padding: 13px 15px;
+      font-size: 16px;
+      margin-top: 44px;
+      margin-right: 1.5%;
+      width: 48%;
+      color: #9a9ba7;
+      background-color: #e4e5ed;
+      border: none;
+      cursor: pointer;
+      :hover {
+        background: rgb(255, 212, 0);
+        transition: 0.5s ease;
+        cursor: pointer;
+        color: #303441;
+      }
+    }
+  }
+`;
 
 export default MyKmong;
