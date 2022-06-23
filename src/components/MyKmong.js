@@ -74,11 +74,11 @@ const MyKmong = () => {
                <div className="title_category">
                  <div className="category_wrap">
                    <span id="project_id">#{item.project_id}</span>
-                   <span id="project_category">
+                   <span id="project_category" >
                      {item.bigCategory} / {item.smallCategory}
                    </span>
                  </div>
-                 <p id="project_title">{item.title}</p>
+                 <p id="project_title" onClick={()=>{ navigate(`/detail/${item.project_id}`)}} >{item.title}</p>
                </div>
                <div className="amount_wrap">
                  <span>예산</span>
@@ -244,6 +244,7 @@ let ContentWrap = styled.div`
     width: 440px;
     overflow: hidden;
     margin-top: 12px;
+    cursor: pointer;
   }
 
   #project_id {

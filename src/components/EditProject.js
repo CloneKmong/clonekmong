@@ -494,11 +494,11 @@ const EditProject = () => {
             <hr />
             <br />
             <SubmitTitle>
-              아래의 완료버튼을 눌러서 프로젝트를 등록해주세요!
+              아래의 완료버튼을 눌러서 프로젝트를 수정해주세요!
             </SubmitTitle>
             <br />
             <br />
-            <BtnSubmit onClick={submit}>프로젝트 등록 완료하기</BtnSubmit>
+            <BtnSubmit onClick={submit}>프로젝트 수정 완료하기</BtnSubmit>
           </Box>
         </BoxWrapper>
       </Container>

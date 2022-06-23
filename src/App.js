@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 
@@ -35,6 +36,7 @@ function App() {
 
   React.useEffect (() => {
     if (location.pathname === '/') {
+      setHeader(true);
       setUnderBar(true);
     } else if (location.pathname === '/list') {
       setUnderBar(false);

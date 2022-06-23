@@ -1,5 +1,5 @@
 /* MetroSans font */
-@font-face {
+/* @font-face {
   font-family: "MetroSans";
   font-style: normal;
   font-weight: 700;
@@ -22,9 +22,9 @@
   font-style: normal;
   font-weight: 300;
   src: "./fonts/MetroSans/MetroSans-Light.woff2" format("woff2");
-}
+} */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-
-.App {
-  font-family: "MetroSans";
+*{
+  font-family: 'Noto Sans KR', sans-serif;
 }

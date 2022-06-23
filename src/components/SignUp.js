@@ -276,7 +276,8 @@ const SignUp = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data.ok) {
-            navigate("/login");
+            navigate("/");
+            window.scrollTo(0, 0);
           }
         })
         .catch((e) => {
