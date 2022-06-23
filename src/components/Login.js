@@ -222,9 +222,9 @@ const Login = ({setModalOpen}) => {
 };
 
 let Close = styled.div`
-position:fixed;
+position:absolute;
 z-index: 20;
-right: 460px;
+right: 25px;
 margin-top: 10px;
 font-weight: bold;
 cursor: pointer;
