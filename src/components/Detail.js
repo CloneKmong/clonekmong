@@ -18,7 +18,9 @@ const Detail = () => {
   }, [projectDetailName]);
 
   function convertDateFormat(date) {
-    return date.toLocaleDateString().replace(/\./g, '').split(' ').map((v,i)=> i > 0 && v.length < 2 ? '0' + v : v).join('-');
+    if( date ){
+      return date.slice(0, 10);
+    }
   }
   return (
     <>
@@ -71,7 +73,7 @@ const Detail = () => {
           <TextWrapper>
             <SubTitle>프로젝트 작업 마감 일자</SubTitle>
             <SubText>
-              {projectDetail?.dueDateForApplication.slice(0, 10)}
+              {convertDateFormat( projectDetail?.dueDateForApplication )}
               {/* 2022.10.01 */}
             </SubText>
           </TextWrapper>

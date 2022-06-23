@@ -74,7 +74,7 @@ const Login = ({setModalOpen}) => {
   };
 
   const LoginClickEvent = async () => {
-    setModalOpen(false);
+    
     const LoginUserInfo = {
       username: email_Ref.current.value,
       password: pw_Ref.current.value,
@@ -88,7 +88,9 @@ const Login = ({setModalOpen}) => {
           localStorage.setItem("access_token", res.headers.authorization);
           console.log(localStorage.getItem("access_token"));
           navigate("/");
+          setModalOpen(false);
         }else{
+          // alert(res.data.message);
           set_pw_msg(res.data.message);
         }
       })
