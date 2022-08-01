@@ -155,7 +155,7 @@
 </aside>
 
 <br/>
-
+https://user-images.githubusercontent.com/107230384/182148086-1cd39f03-71c1-4ce2-ab16-ebcac5663f88.png
 ## 💯 **6. 핵심기능**
 
 - 회원가입, 로그인 & 로그아웃
