@@ -34,7 +34,7 @@ const HomeRegistedList = () => {
         <>
         {projectList.map((item, index) => (
           <MainRegistedList key={index}>
-          <MainRegistedListImg />
+          <MainRegistedListImg imgPath={item.imageUrl}/>
           <MainRegistedListContentWrap>
             <MainRegistedListContentTitle onClick={()=>GoDtail(item)}>
               {item.title}
@@ -213,7 +213,8 @@ const MainRegistedListImg = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url(https://d2v80xjmx68n4w.cloudfront.net/assets/mobile/modules/custom-project/category-images/custom_project_category_46_1.jpg);
+  background-image: url(${(props)=>props.imgPath});//https://d2v80xjmx68n4w.cloudfront.net/assets/mobile/modules/custom-project/category-images/custom_project_category_46_1.jpg);
+  /* background-image: url(https://d2v80xjmx68n4w.cloudfront.net/assets/mobile/modules/custom-project/category-images/custom_project_category_46_1.jpg); */
   /* background-image */
 `;
 

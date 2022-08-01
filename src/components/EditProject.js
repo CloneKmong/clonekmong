@@ -459,7 +459,7 @@ const EditProject = () => {
                   type="number"
                   min="0"
                   placeholder="최소 10,000 원"
-                  ref={budget}
+                  ref={budget} 
                   defaultValue={budgetValue}
                 />
               </InputBudget>
